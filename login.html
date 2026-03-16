@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Login &amp; Registration | The Vintage Sound</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#bd0f2c",
+            "background-light": "#f8f6f6",
+            "background-dark": "#121011", // Slightly deeper than provided for better contrast
+            "surface-dark": "#1c1819",
+            "border-dark": "#39282b",
+          },
+          fontFamily: {
+            "display": ["Plus Jakarta Sans", "sans-serif"]
+          },
+          borderRadius: {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+        },
+      },
+    }
+  </script>
+<style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .vinyl-texture {
+      background-image: radial-gradient(circle at center, rgba(189, 15, 44, 0.03) 0%, transparent 70%);
+    }
+    .subtle-grid {
+      background-size: 40px 40px;
+      background-image: linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
+                        linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
+    }
+  </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen flex flex-col font-display">
+<!-- Navigation -->
+<nav class="w-full border-b border-border-dark/50 px-6 py-4 flex items-center justify-between bg-background-dark/80 backdrop-blur-md sticky top-0 z-50">
+<div class="flex items-center gap-3 cursor-pointer" onclick="window.location.href='index.html'">
+<div class="bg-primary p-1.5 rounded-lg shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-white text-2xl block">album</span>
+</div>
+<span class="text-xl font-bold tracking-tight text-white uppercase letter-spacing-widest">The Vintage Sound</span>
+</div>
+<div class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-400">
+<a class="hover:text-primary transition-colors" href="loja.html">Loja</a>
+<a class="hover:text-primary transition-colors" href="edicoes-passadas.html">Revista</a>
+<a class="hover:text-primary transition-colors" href="edicoes-passadas.html">Journal</a>
+<div class="h-4 w-px bg-border-dark"></div>
+<button class="flex items-center gap-2 text-white" onclick="window.location.href='carrinho.html'">
+<span class="material-symbols-outlined text-lg">shopping_bag</span>
+<span>Carrinho (0)</span>
+</button>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="flex-grow flex items-center justify-center p-6 vinyl-texture subtle-grid relative overflow-hidden">
+<!-- Decorative background elements -->
+<div class="absolute -top-24 -left-24 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
+<div class="absolute -bottom-24 -right-24 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
+<div class="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-stretch py-12">
+<!-- Login Section (Returning Listeners) -->
+<section class="flex flex-col justify-center space-y-8 p-8 md:p-12 bg-surface-dark/40 backdrop-blur-sm border border-border-dark/30 rounded-xl">
+<div class="space-y-2">
+<div class="inline-flex items-center gap-2 text-primary text-xs font-bold uppercase tracking-[0.2em] mb-2"><span class="w-8 h-px bg-primary"></span> Bem-vindo de volta</div>
+<h1 class="text-3xl font-bold text-white">Ouvintes Recorrentes</h1>
+<p class="text-slate-400 text-sm leading-relaxed max-w-sm">Faça login para acessar seu armário digital, rastrear envios e gerenciar sua curadoria mensal.</p>
+</div>
+<form class="space-y-6">
+<div class="space-y-4">
+<div class="group">
+<label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2 group-focus-within:text-primary transition-colors">E-mail</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 text-xl">alternate_email</span>
+<input class="w-full bg-background-dark/50 border border-border-dark rounded-lg py-3.5 pl-12 pr-4 text-white focus:border-primary focus:ring-1 focus:ring-primary/20 outline-none transition-all placeholder:text-slate-600" placeholder="you@vintage.com" type="email"/>
+</div>
+</div>
+<div class="group">
+<div class="flex justify-between items-center mb-2">
+<label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider group-focus-within:text-primary transition-colors">Senha</label>
+<a class="text-xs text-primary/80 hover:text-primary transition-colors font-medium" href="sobre.html">Esqueceu?</a>
+</div>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 text-xl">lock</span>
+<input class="w-full bg-background-dark/50 border border-border-dark rounded-lg py-3.5 pl-12 pr-4 text-white focus:border-primary focus:ring-1 focus:ring-primary/20 outline-none transition-all placeholder:text-slate-600" placeholder="••••••••" type="password"/>
+</div>
+</div>
+</div>
+<button class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 rounded-lg shadow-lg shadow-primary/20 transition-all flex items-center justify-center gap-2 group" type="submit">Entrar <span class="material-symbols-outlined text-xl transition-transform group-hover:translate-x-1">arrow_forward</span></button>
+<div class="relative flex items-center justify-center py-2">
+<div class="w-full h-px bg-border-dark"></div>
+<span class="absolute bg-surface-dark px-4 text-xs text-slate-500 font-medium uppercase tracking-widest">ou continue com</span>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<button class="flex items-center justify-center gap-3 py-3 px-4 border border-border-dark rounded-lg hover:bg-white/5 transition-colors" type="button">
+<img alt="Google Logo" class="w-5 h-5" data-alt="Google authentication logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0bBVV2FMkAmKZtwGitLX5oMC50lx9CpYfesCrulkLJtdkRjGTqvIyxn4UxHbTTsUEmB3Ny0-uBqE1rNzPrIs0BogQ4R7CS9faZ6JU0OShqqC-AYnEjg3sFMHpM14tNo3THD9-V65lRB8xPAE0ULKTHG9i-korzac1t-xBrANEfQkXdJGWC2sxkSXyM3DTNMS4-MF8fxVyLjGhT6rPC1TFg9_x3-afrkjmzrlFwJ0rWHIoduLeJCWhHITZ5yzN9NrvMwE1X_v0MdA"/>
+<span class="text-sm font-medium text-slate-300">Google</span>
+</button>
+<button class="flex items-center justify-center gap-3 py-3 px-4 border border-border-dark rounded-lg hover:bg-white/5 transition-colors" type="button">
+<span class="material-symbols-outlined text-white text-xl">ios</span>
+<span class="text-sm font-medium text-slate-300">Apple</span>
+</button>
+</div>
+</form>
+</section>
+<!-- Registration Section (New Collectors) -->
+<section class="flex flex-col justify-center space-y-8 p-8 md:p-12 bg-primary/5 border border-primary/20 rounded-xl relative overflow-hidden group">
+<!-- Visual Accent -->
+<div class="absolute top-0 right-0 p-8 text-primary/10">
+<span class="material-symbols-outlined text-[120px]">add_circle</span>
+</div>
+<div class="space-y-2 relative">
+<div class="inline-flex items-center gap-2 text-primary text-xs font-bold uppercase tracking-[0.2em] mb-2"><span class="w-8 h-px bg-primary"></span> Junte-se ao Clube</div>
+<h2 class="text-3xl font-bold text-white">Novos Colecionadores</h2>
+<p class="text-slate-400 text-sm leading-relaxed max-w-sm">Descubra prensagens raras e entregas mensais curadas sob medida para sua paleta sonora.</p>
+</div>
+<form class="space-y-5 relative">
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-2">
+<label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider">Nome</label>
+<input class="w-full bg-background-dark/50 border border-border-dark rounded-lg py-3.5 px-4 text-white focus:border-primary focus:ring-1 focus:ring-primary/20 outline-none transition-all placeholder:text-slate-600" placeholder="John" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider">Sobrenome</label>
+<input class="w-full bg-background-dark/50 border border-border-dark rounded-lg py-3.5 px-4 text-white focus:border-primary focus:ring-1 focus:ring-primary/20 outline-none transition-all placeholder:text-slate-600" placeholder="Coltrane" type="text"/>
+</div>
+</div>
+<div class="space-y-2">
+<label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider">E-mail</label>
+<input class="w-full bg-background-dark/50 border border-border-dark rounded-lg py-3.5 px-4 text-white focus:border-primary focus:ring-1 focus:ring-primary/20 outline-none transition-all placeholder:text-slate-600" placeholder="john@jazz.com" type="email"/>
+</div>
+<div class="space-y-2">
+<label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider">Criar Senha</label>
+<input class="w-full bg-background-dark/50 border border-border-dark rounded-lg py-3.5 px-4 text-white focus:border-primary focus:ring-1 focus:ring-primary/20 outline-none transition-all placeholder:text-slate-600" placeholder="Pelo menos 8 caracteres" type="password"/>
+</div>
+<div class="flex items-start gap-3 py-2">
+<input class="mt-1 w-4 h-4 rounded border-border-dark bg-background-dark/50 text-primary focus:ring-primary/20 focus:ring-offset-background-dark" id="newsletter" type="checkbox"/>
+<label class="text-xs text-slate-400 leading-normal" for="newsletter">Inscreva-me na newsletter 'Needle Drop' para obter acesso antecipado a lançamentos de edição limitada e atualizações de estúdio.</label>
+</div>
+<button class="w-full border-2 border-primary text-primary hover:bg-primary hover:text-white font-bold py-4 rounded-lg transition-all flex items-center justify-center gap-2 group" type="submit">Criar Conta <span class="material-symbols-outlined text-xl">person_add</span></button>
+</form>
+<div class="text-center relative pt-4">
+<p class="text-[10px] text-slate-600 uppercase tracking-widest leading-relaxed">Ao criar uma conta, você concorda com nossos <a class="text-slate-400 hover:text-primary underline underline-offset-4 decoration-slate-800" href="sobre.html">Termos de Serviço</a> e <a class="text-slate-400 hover:text-primary underline underline-offset-4 decoration-slate-800" href="sobre.html">Política de Privacidade</a>.</p>
+</div>
+</section>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full border-t border-border-dark/50 py-8 px-6 bg-background-dark">
+<div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="flex items-center gap-4">
+<span class="text-slate-600 text-xs font-medium uppercase tracking-[0.2em]">© 2024 The Vintage Sound</span>
+</div>
+<div class="flex items-center gap-8">
+<a class="text-slate-500 hover:text-white transition-colors text-xs uppercase tracking-widest font-bold" href="sobre.html">Central de Ajuda</a>
+<a class="text-slate-500 hover:text-white transition-colors text-xs uppercase tracking-widest font-bold" href="sobre.html">Portal do Artista</a>
+<a class="text-slate-500 hover:text-white transition-colors text-xs uppercase tracking-widest font-bold" href="sobre.html">Envio</a>
+</div>
+<div class="flex gap-4">
+<button class="w-8 h-8 flex items-center justify-center rounded-full border border-border-dark text-slate-500 hover:text-primary hover:border-primary transition-all">
+<span class="material-symbols-outlined text-lg">share</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-full border border-border-dark text-slate-500 hover:text-primary hover:border-primary transition-all">
+<span class="material-symbols-outlined text-lg">language</span>
+</button>
+</div>
+</div>
+</footer>
+</body></html>

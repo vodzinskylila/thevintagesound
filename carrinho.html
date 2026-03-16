@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-br"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Vintage Sound - Shopping Bag &amp; Checkout</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#bd0f2c",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#12080a",
+                        "surface-dark": "#1e0f11",
+                        "border-dark": "#3d2226",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+<!-- Top Navigation Bar -->
+<header class="border-b border-slate-200 dark:border-border-dark bg-white/50 dark:bg-background-dark/50 backdrop-blur-md sticky top-0 z-50">
+<div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+<div class="flex items-center gap-12">
+<a class="flex items-center gap-3" href="index.html">
+<div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-xl">album</span>
+</div>
+<h1 class="text-xl font-extrabold tracking-tight">The Vintage Sound</h1>
+</a>
+<nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-500 dark:text-slate-400">
+<a class="hover:text-primary transition-colors" href="loja.html">Loja</a>
+<a class="hover:text-primary transition-colors" href="#">Assinaturas</a>
+<a class="hover:text-primary transition-colors" href="#">Coleções</a>
+<a class="hover:text-primary transition-colors" href="sobre.html">Sobre</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<button class="p-2 hover:bg-slate-100 dark:hover:bg-surface-dark rounded-full transition-colors">
+<span class="material-symbols-outlined">search</span>
+</button>
+<a class="p-2 hover:bg-slate-100 dark:hover:bg-surface-dark rounded-full transition-colors relative" href="carrinho.html">
+<span class="material-symbols-outlined">shopping_bag</span>
+<span class="absolute top-1 right-1 w-4 h-4 bg-primary text-[10px] flex items-center justify-center rounded-full text-white">2</span>
+</a>
+<a class="p-2 hover:bg-slate-100 dark:hover:bg-surface-dark rounded-full transition-colors" href="login.html">
+<span class="material-symbols-outlined">person</span>
+</a>
+</div>
+</div>
+</header>
+<main class="max-w-7xl mx-auto px-6 py-12">
+<!-- Breadcrumbs & Title -->
+<div class="mb-12">
+<nav class="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400 mb-4">
+<a class="hover:underline" href="index.html">Início</a>
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+<span class="text-slate-900 dark:text-slate-100">Carrinho de Compras</span>
+</nav>
+<h2 class="text-4xl font-bold tracking-tight">Revise sua coleção</h2>
+<p class="text-slate-500 dark:text-slate-400 mt-2">Quase pronto para rodar. Revise seus itens e prossiga para o checkout seguro.</p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+<!-- Shopping Bag Content (Left) -->
+<div class="lg:col-span-7 space-y-8">
+<!-- Items List -->
+<div class="space-y-6">
+<!-- Item 1: Subscription -->
+<div class="flex gap-6 pb-6 border-b border-slate-200 dark:border-border-dark items-center">
+<div class="w-32 h-32 bg-primary/10 rounded-xl flex items-center justify-center overflow-hidden">
+<div class="bg-primary/20 p-4 rounded-full">
+<span class="material-symbols-outlined text-primary text-4xl">loyalty</span>
+</div>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<div>
+<span class="text-[10px] font-bold uppercase tracking-widest text-primary mb-1 block">Plano Mensal</span>
+<h3 class="text-lg font-bold">Assinatura Collector's Circle</h3>
+<p class="text-sm text-slate-500 dark:text-slate-400">1 Disco curado por mês + Exclusivos para Membros</p>
+</div>
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+<div class="flex justify-between items-end mt-4">
+<div class="flex items-center border border-slate-200 dark:border-border-dark rounded-lg px-2">
+<button class="p-1 text-slate-400 hover:text-slate-900 dark:hover:text-white">
+<span class="material-symbols-outlined text-sm">remove</span>
+</button>
+<span class="w-8 text-center text-sm font-semibold">1</span>
+<button class="p-1 text-slate-400 hover:text-slate-900 dark:hover:text-white">
+<span class="material-symbols-outlined text-sm">add</span>
+</button>
+</div>
+<span class="text-lg font-bold">R$ 149,90</span>
+</div>
+</div>
+</div>
+<!-- Item 2: Individual Record -->
+<div class="flex gap-6 pb-6 border-b border-slate-200 dark:border-border-dark items-center">
+<div class="w-32 h-32 bg-slate-200 dark:bg-surface-dark rounded-xl overflow-hidden shadow-lg border border-white/5">
+<img alt="The Dark Side of the Moon" class="w-full h-full object-cover" data-alt="Classic vinyl record cover art with prism" src="https://imgs.search.brave.com/0E2txGz-yYIf-sF0ytgcF4k-SH7j1vNJqOgdXyyG-rc/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMtbmEuc3NsLWlt/YWdlcy1hbWF6b24u/Y29tL2ltYWdlcy9J/LzYxMFJHSmxHMVpM/LmpwZw"/>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<div>
+<span class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-1 block">Prensagem Audiófila 180g</span>
+<h3 class="text-lg font-bold">The Dark Side of the Moon</h3>
+<p class="text-sm text-slate-500 dark:text-slate-400">Pink Floyd • Remasterização 2023</p>
+</div>
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+<div class="flex justify-between items-end mt-4">
+<div class="flex items-center border border-slate-200 dark:border-border-dark rounded-lg px-2">
+<button class="p-1 text-slate-400 hover:text-slate-900 dark:hover:text-white">
+<span class="material-symbols-outlined text-sm">remove</span>
+</button>
+<span class="w-8 text-center text-sm font-semibold">1</span>
+<button class="p-1 text-slate-400 hover:text-slate-900 dark:hover:text-white">
+<span class="material-symbols-outlined text-sm">add</span>
+</button>
+</div>
+<span class="text-lg font-bold">R$ 248,00</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Shipping Form (Airy design) -->
+<div class="pt-8">
+<h3 class="text-xl font-bold mb-6 flex items-center gap-2"><span class="material-symbols-outlined">local_shipping</span> Endereço de Entrega</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="text-xs font-bold uppercase text-slate-400">Nome Completo</label>
+<input class="w-full bg-transparent border-slate-200 dark:border-border-dark rounded-lg focus:ring-primary focus:border-primary" placeholder="Seu nome aqui" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="text-xs font-bold uppercase text-slate-400">CEP</label>
+<input class="w-full bg-transparent border-slate-200 dark:border-border-dark rounded-lg focus:ring-primary focus:border-primary" placeholder="00000-000" type="text"/>
+</div>
+<div class="md:col-span-2 space-y-2">
+<label class="text-xs font-bold uppercase text-slate-400">Endereço</label>
+<input class="w-full bg-transparent border-slate-200 dark:border-border-dark rounded-lg focus:ring-primary focus:border-primary" placeholder="Rua, número e bairro" type="text"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Checkout Sidebar (Right) -->
+<div class="lg:col-span-5">
+<div class="bg-white dark:bg-surface-dark p-8 rounded-2xl border border-slate-200 dark:border-border-dark shadow-xl sticky top-28">
+<h3 class="text-2xl font-bold mb-8">Resumo</h3>
+<div class="space-y-4 mb-8">
+<div class="flex justify-between text-slate-500 dark:text-slate-400">
+<span>Subtotal</span>
+<span>R$ 397,90</span>
+</div>
+<div class="flex justify-between text-slate-500 dark:text-slate-400">
+<span>Frete</span>
+<span class="text-green-500 font-medium">Grátis</span>
+</div>
+<div class="pt-4 border-t border-slate-200 dark:border-border-dark flex justify-between items-end">
+<span class="text-lg font-medium">Total</span>
+<span class="text-3xl font-black text-primary">R$ 397,90</span>
+</div>
+</div>
+<!-- Payment Method Toggle -->
+<div class="mb-8">
+<label class="text-xs font-bold uppercase text-slate-400 mb-4 block">Selecione o Método de Pagamento</label>
+<div class="grid grid-cols-2 gap-4">
+<button class="flex flex-col items-center gap-2 p-4 rounded-xl border-2 border-primary bg-primary/5 text-primary transition-all">
+<span class="material-symbols-outlined">credit_card</span>
+<span class="text-xs font-bold">Cartão de Crédito</span>
+</button>
+<button class="flex flex-col items-center gap-2 p-4 rounded-xl border-2 border-slate-200 dark:border-border-dark hover:border-slate-300 dark:hover:border-slate-700 transition-all">
+<span class="material-symbols-outlined">qr_code_2</span>
+<span class="text-xs font-bold">PIX</span>
+</button>
+</div>
+</div>
+<!-- Credit Card Details -->
+<div class="space-y-4 mb-10">
+<div class="space-y-2">
+<label class="text-xs font-bold uppercase text-slate-400">Número do Cartão</label>
+<div class="relative">
+<input class="w-full bg-transparent border-slate-200 dark:border-border-dark rounded-lg pl-10 focus:ring-primary focus:border-primary" placeholder="0000 0000 0000 0000" type="text"/>
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-slate-400">payments</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-2">
+<label class="text-xs font-bold uppercase text-slate-400">Data de Validade</label>
+<input class="w-full bg-transparent border-slate-200 dark:border-border-dark rounded-lg focus:ring-primary focus:border-primary" placeholder="MM/YY" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="text-xs font-bold uppercase text-slate-400">CVV</label>
+<input class="w-full bg-transparent border-slate-200 dark:border-border-dark rounded-lg focus:ring-primary focus:border-primary" placeholder="123" type="text"/>
+</div>
+</div>
+</div>
+<button class="w-full bg-primary hover:bg-primary/90 text-white py-5 rounded-xl font-bold text-lg shadow-lg shadow-primary/20 transition-all active:scale-[0.98] flex items-center justify-center gap-3"><span class="material-symbols-outlined">lock</span> Finalizar Compra</button>
+<div class="mt-6 flex items-center justify-center gap-6 text-slate-400">
+<div class="flex items-center gap-1 text-[10px] uppercase font-bold tracking-widest"><span class="material-symbols-outlined text-sm">verified_user</span> SSL Seguro</div>
+<div class="flex items-center gap-1 text-[10px] uppercase font-bold tracking-widest"><span class="material-symbols-outlined text-sm">airport_shuttle</span> Seguro</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Extra whitespace for airy feel -->
+<div class="h-24"></div>
+<!-- Trust Section -->
+<div class="border-t border-slate-200 dark:border-border-dark py-12">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+<div class="space-y-3">
+<span class="material-symbols-outlined text-3xl text-primary">high_quality</span>
+<h4 class="font-bold">Prensagens Originais</h4>
+<p class="text-sm text-slate-500 dark:text-slate-400">Trabalhamos apenas com selos oficiais e colecionadores confiáveis.</p>
+</div>
+<div class="space-y-3">
+<span class="material-symbols-outlined text-3xl text-primary">box</span>
+<h4 class="font-bold">Embalagem à Prova de Tudo</h4>
+<p class="text-sm text-slate-500 dark:text-slate-400">Caixas personalizadas de parede dupla para evitar danos nos cantos.</p>
+</div>
+<div class="space-y-3">
+<span class="material-symbols-outlined text-3xl text-primary">eco</span>
+<h4 class="font-bold">Música Sustentável</h4>
+<p class="text-sm text-slate-500 dark:text-slate-400">Materiais de envio reciclados e entrega com emissão neutra de carbono.</p>
+</div>
+</div>
+</div>
+</main>
+<footer class="bg-white dark:bg-surface-dark border-t border-slate-200 dark:border-border-dark py-12">
+<div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
+<a class="flex items-center gap-3 opacity-50" href="index.html">
+<div class="w-6 h-6 bg-slate-400 dark:bg-slate-600 rounded flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-sm">album</span>
+</div>
+<span class="font-bold tracking-tight">The Vintage Sound</span>
+</a>
+<div class="flex gap-8 text-sm text-slate-500 dark:text-slate-400">
+<a class="hover:text-primary transition-colors" href="#">Política de Privacidade</a>
+<a class="hover:text-primary transition-colors" href="#">Termos de Serviço</a>
+<a class="hover:text-primary transition-colors" href="#">Informações de Envio</a>
+</div>
+<p class="text-sm text-slate-400">© 2024 The Vintage Sound. Criado para audiófilos.</p>
+</div>
+</footer>
+</body></html>
