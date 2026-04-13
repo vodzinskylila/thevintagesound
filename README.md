@@ -69,7 +69,7 @@ O modelo C4 é uma abordagem para documentar a arquitetura de software em quatro
 
 > **O que é?** O nível mais alto de abstração. Mostra o sistema como uma "caixa preta" e responde à pergunta: *quem usa o sistema e com o que ele se comunica externamente?*
 
-![Diagrama de Contexto C4 — Nível 1](c4_nivel1.png)
+![Diagrama de Contexto C4 — Nível 1](imagens/c4_nivel1.png)
 
 #### Visão Geral
 
@@ -98,7 +98,7 @@ The Vintage Sound ──[API]────> Gateway de Pagamento
 
 > **O que é?** Detalha o interior do sistema principal, mostrando as grandes "partes" que o compõem — aplicações, bancos de dados, serviços — e como elas se comunicam entre si.
 
-![Diagrama de Contêineres C4 — Nível 2](c4_nivel2.png)
+![Diagrama de Contêineres C4 — Nível 2](imagens/c4_nivel2.png)
 
 #### Visão Geral
 
@@ -126,7 +126,7 @@ Aplicação Web ──[API de pagamento]──> Gateway de Pagamento
 
 > **O que é?** Detalha o interior de um contêiner específico, mostrando os componentes (módulos, páginas, serviços internos) que o compõem e como eles se relacionam.
 
-![Diagrama de Componentes C4 — Nível 3](c4_nivel3.png)
+![Diagrama de Componentes C4 — Nível 3](imagens/c4_nivel3.png)
 
 #### Visão Geral
 
@@ -157,7 +157,7 @@ O diagrama de componentes expande o contêiner **Aplicação Web** e mapeia toda
 
 > **O que é?** O nível mais detalhado do modelo C4. Mostra a estrutura interna de um componente específico com suas classes, métodos e atributos — equivalente a um diagrama de classes UML.
 
-![Diagrama de Código C4 — Nível 4](c4_nivel4.png)
+![Diagrama de Código C4 — Nível 4](imagens/c4_nivel4.png)
 
 #### Visão Geral
 
