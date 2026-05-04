@@ -1,0 +1,644 @@
+# routes/auth.py
+import uuid, bcrypt
+from flask import Blueprint, request, jsonify
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
+from database import get_conn
+from datetime import datetime
+
+auth_bp = Blueprint("auth", __name__)
+
+
+@auth_bp.post("/register")
+def register():
+    data = request.get_json() or {}
+    first_name = (data.get("firstName") or "").strip()
+    last_name  = (data.get("lastName")  or "").strip()
+    email      = (data.get("email")     or "").strip().lower()
+    password   = (data.get("password")  or "")
+    newsletter = bool(data.get("newsletter", False))
+
+    if not all([first_name, last_name, email, password]):
+        return jsonify(success=False, message="Preencha todos os campos."), 422
+    if len(password) < 8:
+        return jsonify(success=False, message="Senha deve ter pelo menos 8 caracteres."), 422
+
+    with get_conn() as conn:
+        if conn.execute("SELECT id FROM users WHERE email=?", (email,)).fetchone():
+            return jsonify(success=False, message="Este e-mail já está cadastrado."), 409
+
+        user_id = str(uuid.uuid4())
+        hashed  = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
+        now     = datetime.utcnow().isoformat()
+        conn.execute(
+            "INSERT INTO users (id,first_name,last_name,email,password,role,newsletter,created_at) VALUES (?,?,?,?,?,?,?,?)",
+            (user_id, first_name, last_name, email, hashed, "customer", int(newsletter), now),
+        )
+
+    token = create_access_token(identity=user_id)
+    user  = {"id": user_id, "firstName": first_name, "lastName": last_name,
+             "email": email, "role": "customer", "newsletter": newsletter}
+    return jsonify(success=True, message="Conta criada com sucesso!", token=token, user=user), 201
+
+
+@auth_bp.post("/login")
+def login():
+    data     = request.get_json() or {}
+    email    = (data.get("email")    or "").strip().lower()
+    password = (data.get("password") or "")
+
+    if not email or not password:
+        return jsonify(success=False, message="Preencha e-mail e senha."), 422
+
+    with get_conn() as conn:
+        row = conn.execute("SELECT * FROM users WHERE email=?", (email,)).fetchone()
+
+    if not row or not bcrypt.checkpw(password.encode(), row["password"].encode()):
+        return jsonify(success=False, message="E-mail ou senha incorretos."), 401
+
+    token = create_access_token(identity=row["id"])
+    user  = {"id": row["id"], "firstName": row["first_name"], "lastName": row["last_name"],
+             "email": row["email"], "role": row["role"], "newsletter": bool(row["newsletter"])}
+    return jsonify(success=True, message="Login realizado com sucesso.", token=token, user=user)
+
+
+@auth_bp.get("/me")
+@jwt_required()
+def me():
+    user_id = get_jwt_identity()
+    with get_conn() as conn:
+        row = conn.execute("SELECT * FROM users WHERE id=?", (user_id,)).fetchone()
+    if not row:
+        return jsonify(success=False, message="Usuário não encontrado."), 404
+    user = {"id": row["id"], "firstName": row["first_name"], "lastName": row["last_name"],
+            "email": row["email"], "role": row["role"], "newsletter": bool(row["newsletter"])}
+    return jsonify(success=True, user=user)
+
+
+@auth_bp.patch("/me")
+@jwt_required()
+def update_profile():
+    user_id = get_jwt_identity()
+    data    = request.get_json() or {}
+    fields, values = [], []
+    if "firstName"  in data: fields.append("first_name=?");  values.append(data["firstName"].strip())
+    if "lastName"   in data: fields.append("last_name=?");   values.append(data["lastName"].strip())
+    if "newsletter" in data: fields.append("newsletter=?");  values.append(int(data["newsletter"]))
+    if not fields:
+        return jsonify(success=False, message="Nenhum campo para atualizar."), 400
+    values.append(user_id)
+    with get_conn() as conn:
+        conn.execute(f"UPDATE users SET {', '.join(fields)} WHERE id=?", values)
+        row = conn.execute("SELECT * FROM users WHERE id=?", (user_id,)).fetchone()
+    user = {"id": row["id"], "firstName": row["first_name"], "lastName": row["last_name"],
+            "email": row["email"], "role": row["role"], "newsletter": bool(row["newsletter"])}
+    return jsonify(success=True, message="Perfil atualizado.", user=user)
+
+# routes/cart.py
+import uuid, json
+from flask import Blueprint, request, jsonify
+from flask_jwt_extended import jwt_required, get_jwt_identity
+from database import get_conn
+from datetime import datetime
+
+cart_bp = Blueprint("cart", __name__)
+
+
+def get_cart_data(user_id):
+    with get_conn() as conn:
+        items = conn.execute(
+            """SELECT c.id, c.quantity, c.added_at,
+                      p.id as product_id, p.title, p.artist, p.price,
+                      p.image_url, p.pressing, p.genre, p.stock
+               FROM cart_items c
+               JOIN products p ON p.id = c.product_id
+               WHERE c.user_id=?""",
+            (user_id,),
+        ).fetchall()
+
+    result = []
+    subtotal = 0.0
+    for i in items:
+        item_sub = round(i["price"] * i["quantity"], 2)
+        subtotal += item_sub
+        result.append({
+            "id": i["id"], "quantity": i["quantity"], "addedAt": i["added_at"],
+            "product": {
+                "id": i["product_id"], "title": i["title"], "artist": i["artist"],
+                "price": i["price"], "imageUrl": i["image_url"],
+                "pressing": i["pressing"], "genre": i["genre"], "stock": i["stock"],
+            },
+            "subtotal": item_sub,
+        })
+
+    subtotal  = round(subtotal, 2)
+    shipping  = 0.0 if subtotal >= 200 else 29.90
+    total     = round(subtotal + shipping, 2)
+    item_count = sum(i["quantity"] for i in items)
+
+    return {"items": result, "subtotal": subtotal, "shipping": shipping,
+            "total": total, "itemCount": item_count}
+
+
+@cart_bp.get("/")
+@cart_bp.get("")
+@jwt_required()
+def get_cart():
+    user_id = get_jwt_identity()
+    return jsonify(success=True, data=get_cart_data(user_id))
+
+
+@cart_bp.post("/items")
+@jwt_required()
+def add_item():
+    user_id    = get_jwt_identity()
+    data       = request.get_json() or {}
+    product_id = data.get("productId", "").strip()
+    quantity   = max(1, int(data.get("quantity", 1)))
+
+    if not product_id:
+        return jsonify(success=False, message="productId é obrigatório."), 422
+
+    with get_conn() as conn:
+        product = conn.execute("SELECT * FROM products WHERE id=?", (product_id,)).fetchone()
+        if not product:
+            return jsonify(success=False, message="Produto não encontrado."), 404
+        if product["stock"] < quantity:
+            return jsonify(success=False, message=f"Estoque insuficiente. Disponível: {product['stock']}."), 400
+
+        existing = conn.execute(
+            "SELECT id, quantity FROM cart_items WHERE user_id=? AND product_id=?",
+            (user_id, product_id),
+        ).fetchone()
+
+        if existing:
+            conn.execute(
+                "UPDATE cart_items SET quantity=? WHERE id=?",
+                (existing["quantity"] + quantity, existing["id"]),
+            )
+        else:
+            conn.execute(
+                "INSERT INTO cart_items (id,user_id,product_id,quantity,added_at) VALUES (?,?,?,?,?)",
+                (str(uuid.uuid4()), user_id, product_id, quantity, datetime.utcnow().isoformat()),
+            )
+
+    cart = get_cart_data(user_id)
+    return jsonify(success=True, message=f'"{product["title"]}" adicionado ao carrinho.', data=cart)
+
+
+@cart_bp.patch("/items/<item_id>")
+@jwt_required()
+def update_item(item_id):
+    user_id  = get_jwt_identity()
+    quantity = int((request.get_json() or {}).get("quantity", 1))
+
+    with get_conn() as conn:
+        row = conn.execute(
+            "SELECT id FROM cart_items WHERE id=? AND user_id=?", (item_id, user_id)
+        ).fetchone()
+        if not row:
+            return jsonify(success=False, message="Item não encontrado."), 404
+
+        if quantity <= 0:
+            conn.execute("DELETE FROM cart_items WHERE id=?", (item_id,))
+        else:
+            conn.execute("UPDATE cart_items SET quantity=? WHERE id=?", (quantity, item_id))
+
+    return jsonify(success=True, message="Carrinho atualizado.", data=get_cart_data(user_id))
+
+
+@cart_bp.delete("/items/<item_id>")
+@jwt_required()
+def remove_item(item_id):
+    user_id = get_jwt_identity()
+    with get_conn() as conn:
+        row = conn.execute(
+            "SELECT id FROM cart_items WHERE id=? AND user_id=?", (item_id, user_id)
+        ).fetchone()
+        if not row:
+            return jsonify(success=False, message="Item não encontrado."), 404
+        conn.execute("DELETE FROM cart_items WHERE id=?", (item_id,))
+    return jsonify(success=True, message="Item removido.", data=get_cart_data(user_id))
+
+
+@cart_bp.delete("/")
+@jwt_required()
+def clear_cart():
+    user_id = get_jwt_identity()
+    with get_conn() as conn:
+        conn.execute("DELETE FROM cart_items WHERE user_id=?", (user_id,))
+    return jsonify(success=True, message="Carrinho limpo.")
+
+# routes/orders.py
+import uuid, json
+from flask import Blueprint, request, jsonify
+from flask_jwt_extended import jwt_required, get_jwt_identity
+from database import get_conn
+from datetime import datetime
+
+orders_bp = Blueprint("orders", __name__)
+
+
+def row_to_order(row):
+    return {
+        "id": row["id"], "orderNumber": row["order_number"],
+        "userId": row["user_id"],
+        "items": json.loads(row["items"]),
+        "shippingAddress": json.loads(row["shipping_address"]),
+        "paymentMethod": row["payment_method"],
+        "subtotal": row["subtotal"], "shipping": row["shipping"], "total": row["total"],
+        "status": row["status"],
+        "statusHistory": json.loads(row["status_history"]),
+        "createdAt": row["created_at"],
+    }
+
+
+@orders_bp.post("/")
+@jwt_required()
+def create_order():
+    user_id = get_jwt_identity()
+    data    = request.get_json() or {}
+    address = data.get("shippingAddress")
+    payment = data.get("paymentMethod")
+
+    if not address or not payment:
+        return jsonify(success=False, message="Endereço e método de pagamento são obrigatórios."), 422
+    if payment not in ("credit_card", "pix"):
+        return jsonify(success=False, message="Método inválido. Use: credit_card ou pix."), 422
+
+    with get_conn() as conn:
+        cart = conn.execute(
+            """SELECT c.id, c.quantity,
+                      p.id as pid, p.title, p.artist, p.price, p.image_url, p.stock
+               FROM cart_items c JOIN products p ON p.id=c.product_id
+               WHERE c.user_id=?""",
+            (user_id,),
+        ).fetchall()
+
+        if not cart:
+            return jsonify(success=False, message="Seu carrinho está vazio."), 400
+
+        order_items = []
+        subtotal    = 0.0
+        for item in cart:
+            if item["stock"] < item["quantity"]:
+                return jsonify(success=False,
+                    message=f'Estoque insuficiente para "{item["title"]}". Disponível: {item["stock"]}.'), 400
+            item_sub = round(item["price"] * item["quantity"], 2)
+            subtotal += item_sub
+            order_items.append({
+                "productId": item["pid"], "title": item["title"],
+                "artist": item["artist"], "price": item["price"],
+                "imageUrl": item["image_url"],
+                "quantity": item["quantity"], "subtotal": item_sub,
+            })
+            conn.execute("UPDATE products SET stock=stock-? WHERE id=?", (item["quantity"], item["pid"]))
+
+        subtotal   = round(subtotal, 2)
+        shipping   = 0.0 if subtotal >= 200 else 29.90
+        total      = round(subtotal + shipping, 2)
+        now        = datetime.utcnow().isoformat()
+        order_id   = str(uuid.uuid4())
+        order_num  = f"TVS-{int(datetime.utcnow().timestamp()) % 100000000:08d}"
+        history    = json.dumps([{"status": "pending", "timestamp": now, "note": "Pedido recebido."}])
+
+        conn.execute(
+            """INSERT INTO orders
+               (id,order_number,user_id,items,shipping_address,payment_method,
+                subtotal,shipping,total,status,status_history,created_at)
+               VALUES (?,?,?,?,?,?,?,?,?,?,?,?)""",
+            (order_id, order_num, user_id, json.dumps(order_items),
+             json.dumps(address), payment, subtotal, shipping, total,
+             "pending", history, now),
+        )
+        conn.execute("DELETE FROM cart_items WHERE user_id=?", (user_id,))
+        row = conn.execute("SELECT * FROM orders WHERE id=?", (order_id,)).fetchone()
+
+    return jsonify(success=True, message=f"Pedido #{order_num} realizado com sucesso!",
+                   data=row_to_order(row)), 201
+
+
+@orders_bp.get("/my")
+@jwt_required()
+def my_orders():
+    user_id = get_jwt_identity()
+    with get_conn() as conn:
+        rows = conn.execute(
+            "SELECT * FROM orders WHERE user_id=? ORDER BY created_at DESC", (user_id,)
+        ).fetchall()
+    return jsonify(success=True, data=[row_to_order(r) for r in rows], total=len(rows))
+
+
+@orders_bp.get("/my/<order_id>")
+@jwt_required()
+def get_my_order(order_id):
+    user_id = get_jwt_identity()
+    with get_conn() as conn:
+        row = conn.execute(
+            "SELECT * FROM orders WHERE (id=? OR order_number=?) AND user_id=?",
+            (order_id, order_id, user_id),
+        ).fetchone()
+    if not row:
+        return jsonify(success=False, message="Pedido não encontrado."), 404
+    return jsonify(success=True, data=row_to_order(row))
+
+
+@orders_bp.get("/")
+@jwt_required()
+def all_orders():
+    user_id = get_jwt_identity()
+    with get_conn() as conn:
+        user = conn.execute("SELECT role FROM users WHERE id=?", (user_id,)).fetchone()
+    if not user or user["role"] != "admin":
+        return jsonify(success=False, message="Acesso restrito a administradores."), 403
+
+    status = request.args.get("status", "")
+    page   = max(1, request.args.get("page", 1, type=int))
+    limit  = min(100, max(1, request.args.get("limit", 20, type=int)))
+
+    where  = "WHERE status=?" if status else ""
+    params = [status] if status else []
+    with get_conn() as conn:
+        total = conn.execute(f"SELECT COUNT(*) FROM orders {where}", params).fetchone()[0]
+        rows  = conn.execute(
+            f"SELECT * FROM orders {where} ORDER BY created_at DESC LIMIT ? OFFSET ?",
+            params + [limit, (page - 1) * limit],
+        ).fetchall()
+    return jsonify(success=True, data=[row_to_order(r) for r in rows],
+                   pagination={"total": total, "page": page, "limit": limit})
+
+
+@orders_bp.patch("/<order_id>/status")
+@jwt_required()
+def update_status(order_id):
+    user_id = get_jwt_identity()
+    with get_conn() as conn:
+        user = conn.execute("SELECT role FROM users WHERE id=?", (user_id,)).fetchone()
+    if not user or user["role"] != "admin":
+        return jsonify(success=False, message="Acesso restrito a administradores."), 403
+
+    data   = request.get_json() or {}
+    status = data.get("status", "")
+    note   = data.get("note", "")
+    valid  = ["pending", "confirmed", "shipped", "delivered", "cancelled"]
+    if status not in valid:
+        return jsonify(success=False, message=f"Status inválido. Use: {', '.join(valid)}."), 400
+
+    with get_conn() as conn:
+        row = conn.execute("SELECT * FROM orders WHERE id=?", (order_id,)).fetchone()
+        if not row:
+            return jsonify(success=False, message="Pedido não encontrado."), 404
+        history = json.loads(row["status_history"])
+        history.append({"status": status, "timestamp": datetime.utcnow().isoformat(), "note": note})
+        conn.execute("UPDATE orders SET status=?, status_history=? WHERE id=?",
+                     (status, json.dumps(history), order_id))
+        row = conn.execute("SELECT * FROM orders WHERE id=?", (order_id,)).fetchone()
+    return jsonify(success=True, message="Status atualizado.", data=row_to_order(row))
+
+# routes/products.py
+import uuid, json
+from flask import Blueprint, request, jsonify
+from flask_jwt_extended import jwt_required, get_jwt_identity
+from database import get_conn
+from datetime import datetime
+
+products_bp = Blueprint("products", __name__)
+
+
+def row_to_product(row):
+    return {
+        "id": row["id"], "slug": row["slug"], "title": row["title"],
+        "artist": row["artist"], "genre": row["genre"], "year": row["year"],
+        "label": row["label"], "pressing": row["pressing"],
+        "description": row["description"], "price": row["price"],
+        "stock": row["stock"], "imageUrl": row["image_url"],
+        "tags": json.loads(row["tags"] or "[]"),
+        "featured": bool(row["featured"]),
+        "createdAt": row["created_at"],
+    }
+
+
+@products_bp.get("/")
+def list_products():
+    genre    = request.args.get("genre", "")
+    search   = request.args.get("search", "")
+    featured = request.args.get("featured", "")
+    min_p    = request.args.get("minPrice", type=float)
+    max_p    = request.args.get("maxPrice", type=float)
+    sort     = request.args.get("sort", "created_at")
+    order    = request.args.get("order", "desc")
+    page     = max(1, request.args.get("page", 1, type=int))
+    limit    = min(50, max(1, request.args.get("limit", 8, type=int)))
+
+    # Mapeamento de campos sort
+    sort_map = {"price": "price", "title": "title", "year": "year", "createdAt": "created_at"}
+    sort_col = sort_map.get(sort, "created_at")
+    order_kw = "ASC" if order == "asc" else "DESC"
+
+    where, params = ["1=1"], []
+    if genre:    where.append("genre=?");                params.append(genre)
+    if featured == "true": where.append("featured=1")
+    if search:   where.append("(title LIKE ? OR artist LIKE ? OR genre LIKE ?)"); params += [f"%{search}%"]*3
+    if min_p:    where.append("price>=?");               params.append(min_p)
+    if max_p:    where.append("price<=?");               params.append(max_p)
+
+    where_sql = " AND ".join(where)
+    with get_conn() as conn:
+        total = conn.execute(f"SELECT COUNT(*) FROM products WHERE {where_sql}", params).fetchone()[0]
+        rows  = conn.execute(
+            f"SELECT * FROM products WHERE {where_sql} ORDER BY {sort_col} {order_kw} LIMIT ? OFFSET ?",
+            params + [limit, (page - 1) * limit],
+        ).fetchall()
+
+    total_pages = max(1, -(-total // limit))  # ceil division
+    return jsonify(
+        success=True,
+        data=[row_to_product(r) for r in rows],
+        pagination={"total": total, "page": page, "limit": limit,
+                    "totalPages": total_pages,
+                    "hasNext": page < total_pages, "hasPrev": page > 1},
+    )
+
+
+@products_bp.get("/genres")
+def list_genres():
+    with get_conn() as conn:
+        rows = conn.execute("SELECT DISTINCT genre FROM products ORDER BY genre").fetchall()
+    return jsonify(success=True, data=[r["genre"] for r in rows])
+
+
+@products_bp.get("/<slug_or_id>")
+def get_product(slug_or_id):
+    with get_conn() as conn:
+        row = conn.execute("SELECT * FROM products WHERE slug=? OR id=?", (slug_or_id, slug_or_id)).fetchone()
+    if not row:
+        return jsonify(success=False, message="Produto não encontrado."), 404
+    p = row_to_product(row)
+    with get_conn() as conn:
+        related = conn.execute(
+            "SELECT * FROM products WHERE genre=? AND id!=? LIMIT 4", (row["genre"], row["id"])
+        ).fetchall()
+    return jsonify(success=True, data=p, related=[row_to_product(r) for r in related])
+
+
+@products_bp.post("/")
+@jwt_required()
+def create_product():
+    user_id = get_jwt_identity()
+    with get_conn() as conn:
+        user = conn.execute("SELECT role FROM users WHERE id=?", (user_id,)).fetchone()
+    if not user or user["role"] != "admin":
+        return jsonify(success=False, message="Acesso restrito a administradores."), 403
+
+    data = request.get_json() or {}
+    required = ["title", "artist", "genre", "price"]
+    if not all(data.get(f) for f in required):
+        return jsonify(success=False, message="Campos obrigatórios: title, artist, genre, price."), 422
+
+    slug = f"{data['artist']}-{data['title']}".lower()
+    slug = "".join(c if c.isalnum() else "-" for c in slug).strip("-")
+    now  = datetime.utcnow().isoformat()
+
+    with get_conn() as conn:
+        if conn.execute("SELECT id FROM products WHERE slug=?", (slug,)).fetchone():
+            return jsonify(success=False, message="Produto com este slug já existe."), 409
+        pid = str(uuid.uuid4())
+        conn.execute(
+            """INSERT INTO products (id,slug,title,artist,genre,year,label,pressing,description,
+               price,stock,image_url,tags,featured,created_at) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+            (pid, slug, data["title"], data["artist"], data["genre"],
+             data.get("year"), data.get("label"), data.get("pressing"),
+             data.get("description"), float(data["price"]),
+             int(data.get("stock", 0)), data.get("imageUrl", ""),
+             json.dumps(data.get("tags", [])), int(data.get("featured", False)), now),
+        )
+        row = conn.execute("SELECT * FROM products WHERE id=?", (pid,)).fetchone()
+    return jsonify(success=True, message="Produto criado.", data=row_to_product(row)), 201
+
+
+@products_bp.delete("/<product_id>")
+@jwt_required()
+def delete_product(product_id):
+    user_id = get_jwt_identity()
+    with get_conn() as conn:
+        user = conn.execute("SELECT role FROM users WHERE id=?", (user_id,)).fetchone()
+    if not user or user["role"] != "admin":
+        return jsonify(success=False, message="Acesso restrito a administradores."), 403
+    with get_conn() as conn:
+        conn.execute("DELETE FROM products WHERE id=?", (product_id,))
+    return jsonify(success=True, message="Produto removido.")
+
+# routes/subscriptions.py
+import uuid
+from flask import Blueprint, request, jsonify
+from flask_jwt_extended import jwt_required, get_jwt_identity
+from database import get_conn, SUBSCRIPTION_PLANS
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
+
+subs_bp = Blueprint("subscriptions", __name__)
+
+
+def find_plan(plan_id):
+    return next((p for p in SUBSCRIPTION_PLANS if p["id"] == plan_id), None)
+
+
+@subs_bp.get("/plans")
+def list_plans():
+    return jsonify(success=True, data=SUBSCRIPTION_PLANS)
+
+
+@subs_bp.post("/")
+@jwt_required()
+def subscribe():
+    user_id = get_jwt_identity()
+    data    = request.get_json() or {}
+    plan_id = data.get("planId", "")
+    payment = data.get("paymentMethod", "")
+
+    plan = find_plan(plan_id)
+    if not plan:
+        return jsonify(success=False, message="Plano não encontrado."), 404
+    if payment not in ("credit_card", "pix"):
+        return jsonify(success=False, message="Método de pagamento inválido."), 422
+
+    with get_conn() as conn:
+        existing = conn.execute(
+            "SELECT id, plan_name FROM subscriptions WHERE user_id=? AND status='active'", (user_id,)
+        ).fetchone()
+        if existing:
+            return jsonify(success=False,
+                message=f'Você já possui uma assinatura ativa: "{existing["plan_name"]}".'), 409
+
+        now      = datetime.utcnow()
+        next_bill = (now + relativedelta(months=1)).isoformat()
+        sub_id   = str(uuid.uuid4())
+        conn.execute(
+            """INSERT INTO subscriptions
+               (id,user_id,plan_id,plan_name,price,interval_type,status,
+                payment_method,start_date,next_billing,created_at)
+               VALUES (?,?,?,?,?,?,?,?,?,?,?)""",
+            (sub_id, user_id, plan_id, plan["name"], plan["price"],
+             plan["interval"], "active", payment,
+             now.isoformat(), next_bill, now.isoformat()),
+        )
+        row = conn.execute("SELECT * FROM subscriptions WHERE id=?", (sub_id,)).fetchone()
+
+    return jsonify(success=True,
+        message=f'Assinatura "{plan["name"]}" ativada! Bem-vindo ao clube.',
+        data=dict(row)), 201
+
+
+@subs_bp.get("/my")
+@jwt_required()
+def my_subscription():
+    user_id = get_jwt_identity()
+    with get_conn() as conn:
+        row = conn.execute(
+            "SELECT * FROM subscriptions WHERE user_id=? AND status='active'", (user_id,)
+        ).fetchone()
+    if not row:
+        return jsonify(success=True, data=None, message="Nenhuma assinatura ativa.")
+    plan = find_plan(row["plan_id"])
+    result = dict(row)
+    result["planDetails"] = plan
+    return jsonify(success=True, data=result)
+
+
+@subs_bp.delete("/<sub_id>")
+@jwt_required()
+def cancel(sub_id):
+    user_id = get_jwt_identity()
+    with get_conn() as conn:
+        row = conn.execute(
+            "SELECT id FROM subscriptions WHERE id=? AND user_id=? AND status='active'",
+            (sub_id, user_id),
+        ).fetchone()
+        if not row:
+            return jsonify(success=False, message="Assinatura não encontrada."), 404
+        conn.execute(
+            "UPDATE subscriptions SET status='cancelled', cancelled_at=? WHERE id=?",
+            (datetime.utcnow().isoformat(), sub_id),
+        )
+        row = conn.execute("SELECT * FROM subscriptions WHERE id=?", (sub_id,)).fetchone()
+    return jsonify(success=True,
+        message="Assinatura cancelada. Acesso mantido até o fim do período.", data=dict(row))
+
+
+@subs_bp.get("/")
+@jwt_required()
+def all_subscriptions():
+    user_id = get_jwt_identity()
+    with get_conn() as conn:
+        user = conn.execute("SELECT role FROM users WHERE id=?", (user_id,)).fetchone()
+    if not user or user["role"] != "admin":
+        return jsonify(success=False, message="Acesso restrito a administradores."), 403
+    status = request.args.get("status", "")
+    with get_conn() as conn:
+        if status:
+            rows = conn.execute("SELECT * FROM subscriptions WHERE status=?", (status,)).fetchall()
+        else:
+            rows = conn.execute("SELECT * FROM subscriptions").fetchall()
+    revenue = sum(r["price"] for r in rows if r["status"] == "active")
+    return jsonify(success=True, data=[dict(r) for r in rows],
+                   total=len(rows), revenue=round(revenue, 2))
+
