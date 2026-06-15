@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html class="dark" lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Minha Conta | The Vintage Sound</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet"/>
+<script>
+tailwind.config = {
+    darkMode: 'class',
+    theme: {
+        extend: {
+            colors: {
+                primary: '#bd0f2c',
+                'bg-light': '#f8f6f6',
+                'bg-dark': '#12080a',
+                'surface': '#1e0f11',
+                'border': '#3d2226',
+                'muted': '#b99da1',
+            },
+        },
+    },
+}
+</script>
+<style>body { font-family: 'Plus Jakarta Sans', sans-serif; }
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  font-family: 'Material Symbols Outlined';
+}
+</style>
+</head>
+<body class="bg-bg-light dark:bg-bg-dark text-gray-900 dark:text-white min-h-screen">
+
+<!-- HEADER -->
+<header class="border-b border-border bg-white/50 dark:bg-bg-dark/50 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+        <a href="index.html" class="flex items-center gap-3">
+            <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+                <span class="material-symbols-outlined text-white text-xl">album</span>
+            </div>
+            <span class="text-xl font-bold tracking-tight">The Vintage Sound</span>
+        </a>
+        <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-gray-500 dark:text-gray-400">
+            <a href="loja.html" class="hover:text-primary transition-colors">Loja</a>
+            <a href="assinaturas.html" class="hover:text-primary transition-colors">Assinaturas</a>
+            <a href="sobre.html" class="hover:text-primary transition-colors">Sobre</a>
+        </nav>
+        <div class="flex items-center gap-4">
+            <a href="carrinho.html" class="relative p-2 hover:bg-gray-100 dark:hover:bg-surface rounded-lg transition-colors">
+                <span class="material-symbols-outlined">shopping_bag</span>
+                <span id="cart-badge" class="absolute -top-1 -right-1 w-5 h-5 bg-primary text-[10px] font-bold rounded-full flex items-center justify-center">0</span>
+            </a>
+            <a href="perfil.html" class="p-2 bg-primary/10 rounded-lg transition-colors">
+                <span class="material-symbols-outlined text-primary">person</span>
+            </a>
+        </div>
+    </div>
+</header>
+
+<!-- MAIN -->
+<main class="max-w-7xl mx-auto px-6 py-12">
+
+    <!-- NOT LOGGED IN -->
+    <div id="not-logged-in" class="hidden text-center py-20">
+        <span class="material-symbols-outlined text-primary text-6xl mb-6">lock</span>
+        <h2 class="text-3xl font-bold mb-4">Faça login para acessar sua conta</h2>
+        <a href="login.html?redirect=perfil.html" class="bg-primary text-white px-8 py-3 rounded-lg font-bold hover:bg-primary/90 transition-all">Fazer Login</a>
+    </div>
+
+    <!-- LOADING -->
+    <div id="loading" class="hidden flex justify-center py-12">
+        <div class="animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent"></div>
+    </div>
+
+    <!-- PROFILE CONTENT -->
+    <div id="profile-content" class="hidden">
+        <h2 class="text-3xl font-bold mb-8">Minha Conta</h2>
+
+        <div class="grid lg:grid-cols-12 gap-8">
+            <!-- SIDEBAR -->
+            <aside class="lg:col-span-3">
+                <div class="bg-surface rounded-xl p-6 border border-border">
+                    <div class="text-center mb-6">
+                        <div class="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <span class="material-symbols-outlined text-primary text-3xl">person</span>
+                        </div>
+                        <h3 id="user-name" class="font-bold text-lg">Carregando...</h3>
+                        <p id="user-email" class="text-muted text-sm">...</p>
+                    </div>
+                    <nav class="space-y-1">
+                        <button class="profile-tab w-full flex items-center gap-3 px-4 py-3 rounded-lg bg-primary/10 text-primary border-l-2 border-primary" data-tab="profile">
+                            <span class="material-symbols-outlined">manage_accounts</span>
+                            <span class="text-sm font-medium">Meus Dados</span>
+                        </button>
+                        <button class="profile-tab w-full flex items-center gap-3 px-4 py-3 rounded-lg text-muted hover:bg-surface transition-colors" data-tab="subscription">
+                            <span class="material-symbols-outlined">card_membership</span>
+                            <span class="text-sm font-medium">Assinatura</span>
+                        </button>
+                        <button class="profile-tab w-full flex items-center gap-3 px-4 py-3 rounded-lg text-muted hover:bg-surface transition-colors" data-tab="orders">
+                            <span class="material-symbols-outlined">receipt_long</span>
+                            <span class="text-sm font-medium">Pedidos</span>
+                        </button>
+                        <button id="logout-btn" class="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-red-500 hover:bg-red-500/10 transition-colors">
+                            <span class="material-symbols-outlined">logout</span>
+                            <span class="text-sm font-medium">Sair</span>
+                        </button>
+                    </nav>
+                </div>
+            </aside>
+
+            <!-- CONTENT -->
+            <div class="lg:col-span-9">
+                <!-- PROFILE TAB -->
+                <div id="tab-profile" class="profile-panel bg-surface rounded-xl p-8 border border-border">
+                    <h3 class="text-xl font-bold mb-6">Meus Dados</h3>
+                    <form id="profile-form" class="space-y-6">
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="text-xs font-bold uppercase text-muted mb-2 block">Nome</label>
+                                <input id="edit-firstname" class="w-full bg-bg-dark/50 border border-border rounded-lg py-3 px-4 text-white focus:border-primary focus:outline-none" type="text"/>
+                            </div>
+                            <div>
+                                <label class="text-xs font-bold uppercase text-muted mb-2 block">Sobrenome</label>
+                                <input id="edit-lastname" class="w-full bg-bg-dark/50 border border-border rounded-lg py-3 px-4 text-white focus:border-primary focus:outline-none" type="text"/>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="text-xs font-bold uppercase text-muted mb-2 block">E-mail</label>
+                            <input id="edit-email" class="w-full bg-bg-dark/50 border border-border rounded-lg py-3 px-4 text-white focus:border-primary focus:outline-none" type="email" disabled/>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <input id="edit-newsletter" class="w-4 h-4 rounded border-border bg-bg-dark/50 text-primary focus:ring-primary" type="checkbox"/>
+                            <label for="edit-newsletter" class="text-sm text-muted">Receber newsletter</label>
+                        </div>
+                        <div id="profile-error" class="hidden text-red-500 text-sm bg-red-500/10 border border-red-500/30 rounded-lg px-4 py-3"></div>
+                        <button type="submit" class="bg-primary hover:bg-primary/90 text-white font-bold py-3 px-8 rounded-lg transition-all">Salvar Alterações</button>
+                    </form>
+                </div>
+
+                <!-- SUBSCRIPTION TAB -->
+                <div id="tab-subscription" class="profile-panel hidden bg-surface rounded-xl p-8 border border-border">
+                    <h3 class="text-xl font-bold mb-6">Minha Assinatura</h3>
+                    <div id="subscription-content"><!-- Loaded dynamically --></div>
+                </div>
+
+                <!-- ORDERS TAB -->
+                <div id="tab-orders" class="profile-panel hidden bg-surface rounded-xl p-8 border border-border">
+                    <h3 class="text-xl font-bold mb-6">Meus Pedidos</h3>
+                    <div id="orders-content"><!-- Loaded dynamically --></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- FOOTER -->
+<footer class="bg-white dark:bg-surface border-t border-border py-8">
+    <div class="max-w-7xl mx-auto px-6 flex justify-between items-center text-sm text-gray-500">
+        <a href="index.html" class="flex items-center gap-2">
+            <div class="w-6 h-6 bg-primary rounded flex items-center justify-center">
+                <span class="material-symbols-outlined text-white text-sm">album</span>
+            </div>
+            <span class="font-bold">The Vintage Sound</span>
+        </a>
+        <p>© 2024 The Vintage Sound.</p>
+    </div>
+</footer>
+
+<script src="api.js"></script>
+<script>
+let currentUser = null;
+
+async function loadProfile() {
+    if (!isLoggedIn()) { document.getElementById('not-logged-in').classList.remove('hidden'); document.getElementById('loading').classList.add('hidden'); return; }
+    document.getElementById('loading').classList.remove('hidden');
+    document.getElementById('not-logged-in').classList.add('hidden');
+    const { ok, data } = await Auth.me();
+    document.getElementById('loading').classList.add('hidden');
+    if (!ok) { clearSession(); window.location.href = 'login.html?redirect=perfil.html'; return; }
+    currentUser = data.user;
+    document.getElementById('profile-content').classList.remove('hidden');
+    document.getElementById('user-name').textContent = currentUser.firstName + ' ' + currentUser.lastName;
+    document.getElementById('user-email').textContent = currentUser.email;
+    document.getElementById('edit-firstname').value = currentUser.firstName;
+    document.getElementById('edit-lastname').value = currentUser.lastName;
+    document.getElementById('edit-email').value = currentUser.email;
+    document.getElementById('edit-newsletter').checked = currentUser.newsletter;
+}
+
+function loadSubscriptionContent() {
+    const container = document.getElementById('subscription-content');
+    container.innerHTML = '<div class="flex justify-center py-8"><div class="animate-spin rounded-full h-8 w-8 border-4 border-primary border-t-transparent"></div></div>';
+    Subscriptions.mySubscription().then(({ ok, data }) => {
+        if (!ok || !data.data) {
+            container.innerHTML = '<div class="text-center py-8"><p class="text-muted mb-4">Nenhuma assinatura ativa.</p><a href="assinaturas.html" class="bg-primary text-white px-6 py-3 rounded-lg font-bold">Assinar</a></div>';
+            return;
+        }
+        const sub = data.data;
+        container.innerHTML = `
+            <div class="bg-bg-dark/50 rounded-xl p-6 border border-border mb-6">
+                <div class="flex items-center justify-between mb-4">
+                    <div><span class="text-xs font-bold text-primary uppercase tracking-widest">Plano</span><h4 class="text-xl font-bold mt-1">${sub.plan_name}</h4></div>
+                    <span class="px-3 py-1 bg-green-500/20 text-green-500 text-xs font-bold rounded-full uppercase">Ativo</span>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                    <div><span class="text-muted">Valor</span><p class="font-bold">${formatPrice(sub.price)}/mês</p></div>
+                    <div><span class="text-muted">Início</span><p class="font-bold">${formatDate(sub.start_date)}</p></div>
+                    <div><span class="text-muted">Próxima Cobrança</span><p class="font-bold">${formatDate(sub.next_billing)}</p></div>
+                    <div><span class="text-muted">Pagamento</span><p class="font-bold">${sub.payment_method === 'credit_card' ? 'Cartão' : 'PIX'}</p></div>
+                </div>
+            </div>
+            <button onclick="cancelSubscription('${sub.id}')" class="text-red-500 hover:text-red-400 text-sm font-medium flex items-center gap-2">
+                <span class="material-symbols-outlined">cancel</span> Cancelar Assinatura
+            </button>
+        `;
+    });
+}
+
+async function cancelSubscription(subId) {
+    if (!confirm('Cancelar assinatura?')) return;
+    const { ok } = await Subscriptions.cancel(subId);
+    if (ok) { toast('Assinatura cancelada.', 'success'); loadSubscriptionContent(); }
+    else toast('Erro ao cancelar.', 'error');
+}
+
+function loadOrdersContent() {
+    const container = document.getElementById('orders-content');
+    container.innerHTML = '<div class="flex justify-center py-8"><div class="animate-spin rounded-full h-8 w-8 border-4 border-primary border-t-transparent"></div></div>';
+    Orders.myOrders().then(({ ok, data }) => {
+        if (!ok || !data.data.length) {
+            container.innerHTML = '<div class="text-center py-8"><p class="text-muted mb-4">Nenhum pedido.</p><a href="loja.html" class="bg-primary text-white px-6 py-3 rounded-lg font-bold">Explorar</a></div>';
+            return;
+        }
+        container.innerHTML = data.data.map(order => `
+            <div class="bg-bg-dark/50 rounded-xl p-6 border border-border mb-4">
+                <div class="flex items-center justify-between mb-4">
+                    <div><span class="text-xs text-muted uppercase tracking-widest">Pedido</span><p class="font-bold text-lg">#${order.orderNumber}</p></div>
+                    <span class="px-3 py-1 ${getStatusClass(order.status)} text-xs font-bold rounded-full uppercase">${getStatusLabel(order.status)}</span>
+                </div>
+                <div class="grid grid-cols-3 gap-4 text-sm mb-4">
+                    <div><span class="text-muted">Data</span><p class="font-medium">${formatDate(order.createdAt)}</p></div>
+                    <div><span class="text-muted">Itens</span><p class="font-medium">${order.items.length}</p></div>
+                    <div><span class="text-muted">Total</span><p class="font-bold text-primary">${formatPrice(order.total)}</p></div>
+                </div>
+            </div>
+        `).join('');
+    });
+}
+
+function getStatusClass(s) { return { pending: 'bg-yellow-500/20 text-yellow-500', confirmed: 'bg-blue-500/20 text-blue-500', shipped: 'bg-purple-500/20 text-purple-500', delivered: 'bg-green-500/20 text-green-500', cancelled: 'bg-red-500/20 text-red-500' }[s] || 'bg-gray-500/20 text-gray-500'; }
+function getStatusLabel(s) { return { pending: 'Pendente', confirmed: 'Confirmado', shipped: 'Enviado', delivered: 'Entregue', cancelled: 'Cancelado' }[s] || s; }
+
+document.querySelectorAll('.profile-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.profile-tab').forEach(b => { b.classList.remove('bg-primary/10', 'text-primary', 'border-l-2', 'border-primary'); b.classList.add('text-muted'); });
+        btn.classList.add('bg-primary/10', 'text-primary', 'border-l-2', 'border-primary');
+        btn.classList.remove('text-muted');
+        document.querySelectorAll('.profile-panel').forEach(p => p.classList.add('hidden'));
+        document.getElementById('tab-' + btn.dataset.tab).classList.remove('hidden');
+        if (btn.dataset.tab === 'subscription') loadSubscriptionContent();
+        if (btn.dataset.tab === 'orders') loadOrdersContent();
+    });
+});
+
+document.getElementById('profile-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = e.target.querySelector('button[type="submit"]');
+    btn.disabled = true;
+    const { ok, result } = await Auth.updateProfile({
+        firstName: document.getElementById('edit-firstname').value.trim(),
+        lastName: document.getElementById('edit-lastname').value.trim(),
+        newsletter: document.getElementById('edit-newsletter').checked
+    });
+    if (ok) { setSession(getToken(), result.user); toast('Perfil atualizado!', 'success'); document.getElementById('user-name').textContent = result.user.firstName + ' ' + result.user.lastName; }
+    else toast('Erro ao atualizar.', 'error');
+    btn.disabled = false;
+});
+
+document.getElementById('logout-btn').addEventListener('click', () => { clearSession(); window.location.href = 'index.html'; });
+
+document.addEventListener('DOMContentLoaded', () => { updateCartBadge(); loadProfile(); });
+</script>
+</body>
+</html>

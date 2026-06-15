@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html class="dark" lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Assinaturas | The Vintage Sound</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet"/>
+<script>
+tailwind.config = {
+    darkMode: 'class',
+    theme: {
+        extend: {
+            colors: {
+                primary: '#bd0f2c',
+                'bg-light': '#f8f6f6',
+                'bg-dark': '#12080a',
+                'surface': '#1e0f11',
+                'border': '#3d2226',
+                'muted': '#b99da1',
+            },
+        },
+    },
+}
+</script>
+<style>body { font-family: 'Plus Jakarta Sans', sans-serif; }
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  font-family: 'Material Symbols Outlined';
+}
+</style>
+</head>
+<body class="bg-bg-light dark:bg-bg-dark text-gray-900 dark:text-white min-h-screen">
+
+<!-- HEADER -->
+<header class="border-b border-border bg-white/50 dark:bg-bg-dark/50 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+        <a href="index.html" class="flex items-center gap-3">
+            <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+                <span class="material-symbols-outlined text-white text-xl">album</span>
+            </div>
+            <span class="text-xl font-bold tracking-tight">The Vintage Sound</span>
+        </a>
+        <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-gray-500 dark:text-gray-400">
+            <a href="loja.html" class="hover:text-primary transition-colors">Loja</a>
+            <a href="assinaturas.html" class="text-primary border-b-2 border-primary pb-1">Assinaturas</a>
+            <a href="sobre.html" class="hover:text-primary transition-colors">Sobre</a>
+        </nav>
+        <div class="flex items-center gap-4">
+            <a href="carrinho.html" class="relative p-2 hover:bg-gray-100 dark:hover:bg-surface rounded-lg transition-colors">
+                <span class="material-symbols-outlined">shopping_bag</span>
+                <span id="cart-badge" class="absolute -top-1 -right-1 w-5 h-5 bg-primary text-[10px] font-bold rounded-full flex items-center justify-center">0</span>
+            </a>
+            <a id="nav-login" href="login.html" class="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg text-sm font-bold transition-all">Login</a>
+            <a id="nav-profile" href="perfil.html" class="hidden bg-surface border border-border px-4 py-2 rounded-lg text-sm font-medium hover:border-primary transition-all">
+                <span id="nav-user-name">Conta</span>
+            </a>
+        </div>
+    </div>
+</header>
+
+<!-- MAIN -->
+<main class="max-w-7xl mx-auto px-6 py-12">
+    <div class="text-center mb-12">
+        <span class="text-primary font-bold uppercase tracking-widest text-sm">Clube de Assinatura</span>
+        <h1 class="text-3xl md:text-5xl font-bold mt-4 mb-4">Curadoria Mensal para Colecionadores</h1>
+        <p class="text-gray-500 max-w-2xl mx-auto">Receba em casa um vinil selecionado mensalmente. Edições limitadas, prensagens premium e benefícios exclusivos.</p>
+    </div>
+
+    <!-- LOADING -->
+    <div id="plans-loading" class="flex justify-center py-12">
+        <div class="animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent"></div>
+    </div>
+
+    <!-- ALREADY SUBSCRIBED -->
+    <div id="already-subscribed" class="hidden text-center py-12 bg-surface rounded-xl border border-border max-w-2xl mx-auto">
+        <span class="material-symbols-outlined text-green-500 text-5xl mb-4 block">check_circle</span>
+        <h2 class="text-2xl font-bold mb-4">Assinatura Ativa!</h2>
+        <p class="text-muted mb-6">Gerencie na página da sua conta.</p>
+        <a href="perfil.html" class="bg-primary text-white px-6 py-3 rounded-lg font-bold">Gerenciar</a>
+    </div>
+
+    <!-- PLANS -->
+    <div id="plans-content" class="hidden grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <!-- Plans loaded dynamically -->
+    </div>
+
+    <!-- FEATURES -->
+    <div class="mt-20 grid md:grid-cols-3 gap-8">
+        <div class="text-center p-8 bg-surface rounded-xl border border-border">
+            <div class="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span class="material-symbols-outlined text-primary text-3xl">auto_awesome</span>
+            </div>
+            <h3 class="text-lg font-bold mb-2">Curadoria Especializada</h3>
+            <p class="text-muted text-sm">Experts selecionam os melhores lançamentos.</p>
+        </div>
+        <div class="text-center p-8 bg-surface rounded-xl border border-border">
+            <div class="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span class="material-symbols-outlined text-primary text-3xl">star</span>
+            </div>
+            <h3 class="text-lg font-bold mb-2">Prensagens Exclusivas</h3>
+            <p class="text-muted text-sm">Edições limitadas em vinil colorido.</p>
+        </div>
+        <div class="text-center p-8 bg-surface rounded-xl border border-border">
+            <div class="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span class="material-symbols-outlined text-primary text-3xl">local_shipping</span>
+            </div>
+            <h3 class="text-lg font-bold mb-2">Frete Grátis</h3>
+            <p class="text-muted text-sm">Entrega gratuita para membros.</p>
+        </div>
+    </div>
+</main>
+
+<!-- SUBSCRIBE MODAL -->
+<div id="subscribe-modal" class="hidden fixed inset-0 z-40 flex items-center justify-center bg-black/60 backdrop-blur-sm" onclick="closeModal()">
+    <div class="bg-surface border border-border rounded-2xl p-8 max-w-md mx-4 w-full" onclick="event.stopPropagation()">
+        <div class="flex items-center justify-between mb-6">
+            <h3 class="text-xl font-bold">Assinar <span id="modal-plan-name"></span></h3>
+            <button onclick="closeModal()" class="text-muted hover:text-white"><span class="material-symbols-outlined">close</span></button>
+        </div>
+        <div class="mb-6 p-4 bg-bg-dark/50 rounded-lg">
+            <div class="flex justify-between items-center">
+                <span class="text-muted">Valor mensal</span>
+                <span class="text-2xl font-bold text-primary" id="modal-plan-price"></span>
+            </div>
+        </div>
+        <div class="mb-6">
+            <label class="text-xs font-bold uppercase text-muted mb-3 block">Pagamento</label>
+            <div class="grid grid-cols-2 gap-3">
+                <button type="button" id="modal-pay-card" class="flex items-center justify-center gap-2 p-3 rounded-xl border-2 border-primary bg-primary/5 text-primary" onclick="setModalPayment('credit_card')">
+                    <span class="material-symbols-outlined">credit_card</span>
+                    <span class="text-xs font-bold">Cartão</span>
+                </button>
+                <button type="button" id="modal-pay-pix" class="flex items-center justify-center gap-2 p-3 rounded-xl border-2 border-border" onclick="setModalPayment('pix')">
+                    <span class="material-symbols-outlined">qr_code_2</span>
+                    <span class="text-xs font-bold">PIX</span>
+                </button>
+            </div>
+        </div>
+        <div id="modal-card-details" class="mb-6 space-y-3">
+            <div>
+                <label class="text-xs font-bold uppercase text-muted mb-1 block">Número do Cartão</label>
+                <input id="modal-card-number" class="w-full bg-bg-dark/50 border border-border rounded-lg py-2 px-3 text-white focus:border-primary focus:outline-none" placeholder="0000 0000 0000 0000" type="text"/>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+                <div>
+                    <label class="text-xs font-bold uppercase text-muted mb-1 block">Validade</label>
+                    <input id="modal-card-expiry" class="w-full bg-bg-dark/50 border border-border rounded-lg py-2 px-3 text-white focus:border-primary focus:outline-none" placeholder="MM/YY" type="text"/>
+                </div>
+                <div>
+                    <label class="text-xs font-bold uppercase text-muted mb-1 block">CVV</label>
+                    <input id="modal-card-cvv" class="w-full bg-bg-dark/50 border border-border rounded-lg py-2 px-3 text-white focus:border-primary focus:outline-none" placeholder="123" type="text"/>
+                </div>
+            </div>
+        </div>
+        <div id="modal-error" class="hidden text-red-500 text-sm bg-red-500/10 border border-red-500/30 rounded-lg px-4 py-3 mb-4"></div>
+        <button id="modal-submit-btn" class="w-full bg-primary hover:bg-primary/90 text-white py-3 rounded-xl font-bold transition-all flex items-center justify-center gap-2">
+            <span class="material-symbols-outlined">check_circle</span> Confirmar
+        </button>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="bg-white dark:bg-surface border-t border-border py-8">
+    <div class="max-w-7xl mx-auto px-6 flex justify-between items-center text-sm text-gray-500">
+        <a href="index.html" class="flex items-center gap-2">
+            <div class="w-6 h-6 bg-primary rounded flex items-center justify-center">
+                <span class="material-symbols-outlined text-white text-sm">album</span>
+            </div>
+            <span class="font-bold">The Vintage Sound</span>
+        </a>
+        <p>© 2024 The Vintage Sound.</p>
+    </div>
+</footer>
+
+<script src="api.js"></script>
+<script>
+let selectedPlan = null;
+let modalPaymentMethod = 'credit_card';
+
+function setModalPayment(method) {
+    modalPaymentMethod = method;
+    const cardBtn = document.getElementById('modal-pay-card');
+    const pixBtn = document.getElementById('modal-pay-pix');
+    const cardDetails = document.getElementById('modal-card-details');
+    if (method === 'credit_card') {
+        cardBtn.classList.add('border-primary', 'bg-primary/5', 'text-primary');
+        cardBtn.classList.remove('border-border');
+        pixBtn.classList.remove('border-primary', 'bg-primary/5', 'text-primary');
+        pixBtn.classList.add('border-border');
+        cardDetails.classList.remove('hidden');
+    } else {
+        pixBtn.classList.add('border-primary', 'bg-primary/5', 'text-primary');
+        pixBtn.classList.remove('border-border');
+        cardBtn.classList.remove('border-primary', 'bg-primary/5', 'text-primary');
+        cardBtn.classList.add('border-border');
+        cardDetails.classList.add('hidden');
+    }
+}
+
+function openModal(plan) {
+    // Redireciona para o carrinho com o produto de assinatura
+    if (!isLoggedIn()) {
+        toast('⚠️ Faça login para assinar.', 'error');
+        setTimeout(() => window.location.href = 'login.html?redirect=assinaturas.html', 1500);
+        return;
+    }
+    window.location.href = 'carrinho.html?add=assinatura-mensal';
+}
+
+function closeModal() { document.getElementById('subscribe-modal').classList.add('hidden'); selectedPlan = null; }
+
+function subscribeNow() {
+    console.log('subscribeNow called');
+    // Direciona para o carrinho com a assinatura
+    window.location.href = 'carrinho.html?add=assinatura-mensal';
+}
+
+async function loadPlans() {
+    if (!isLoggedIn()) {
+        document.getElementById('plans-loading').classList.add('hidden');
+        document.getElementById('plans-content').classList.remove('hidden');
+        renderPlansWithoutSubscribe();
+        return;
+    }
+    const { ok, data } = await Subscriptions.mySubscription();
+    if (ok && data.data) {
+        document.getElementById('plans-loading').classList.add('hidden');
+        document.getElementById('already-subscribed').classList.remove('hidden');
+        return;
+    }
+    const { ok: plansOk, data: plansData } = await Subscriptions.plans();
+    document.getElementById('plans-loading').classList.add('hidden');
+    if (plansOk) { document.getElementById('plans-content').classList.remove('hidden'); renderPlans(plansData.data); }
+}
+
+function renderPlans(plans) {
+    const container = document.getElementById('plans-content');
+    container.innerHTML = plans.map((plan, i) => `
+        <div class="bg-surface rounded-2xl border ${i === 1 ? 'border-primary ring-2 ring-primary/20' : 'border-border'} p-8 relative">
+            ${i === 1 ? '<div class="absolute top-4 right-4 px-3 py-1 bg-primary text-white text-xs font-bold rounded-full uppercase">Popular</div>' : ''}
+            <h3 class="text-xl font-bold mb-2">${plan.name}</h3>
+            <p class="text-muted text-sm mb-6">${plan.description}</p>
+            <div class="mb-6">
+                <span class="text-3xl font-black text-primary">${formatPrice(plan.price)}</span>
+                <span class="text-muted">/mês</span>
+            </div>
+            <ul class="space-y-2 mb-8">
+                ${plan.perks.map(perk => `<li class="flex items-center gap-2 text-sm"><span class="material-symbols-outlined text-green-500 text-lg">check_circle</span>${perk}</li>`).join('')}
+            </ul>
+            <button onclick="subscribeNow()" class="w-full ${i === 1 ? 'bg-primary hover:bg-primary/90 text-white' : 'border-2 border-primary text-primary hover:bg-primary hover:text-white'} font-bold py-3 rounded-xl transition-all">Assinar</button>
+        </div>
+    `).join('');
+}
+
+function renderPlansWithoutSubscribe() {
+    const container = document.getElementById('plans-content');
+    container.innerHTML = `
+        <div class="bg-surface rounded-2xl border border-border p-8">
+            <h3 class="text-xl font-bold mb-2">Collector's Circle</h3>
+            <p class="text-muted text-sm mb-6">1 disco curado por mês + exclusivos</p>
+            <div class="mb-6"><span class="text-3xl font-black text-primary">R$ 149,90</span><span class="text-muted">/mês</span></div>
+            <ul class="space-y-2 mb-8 text-sm"><li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-500 text-lg">check_circle</span>1 disco mensal</li><li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-500 text-lg">check_circle</span>20% desconto</li><li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-500 text-lg">check_circle</span>Frete grátis</li></ul>
+            <a href="login.html?redirect=assinaturas.html" class="block w-full text-center border-2 border-primary text-primary hover:bg-primary hover:text-white font-bold py-3 rounded-xl transition-all">Login para Assinar</a>
+        </div>
+        <div class="bg-surface rounded-2xl border border-primary ring-2 ring-primary/20 p-8 relative">
+            <div class="absolute top-4 right-4 px-3 py-1 bg-primary text-white text-xs font-bold rounded-full uppercase">Popular</div>
+            <h3 class="text-xl font-bold mb-2">Audiophile Club</h3>
+            <p class="text-muted text-sm mb-6">2 discos premium + revista digital</p>
+            <div class="mb-6"><span class="text-3xl font-black text-primary">R$ 249,90</span><span class="text-muted">/mês</span></div>
+            <ul class="space-y-2 mb-8 text-sm"><li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-500 text-lg">check_circle</span>2 discos mensais</li><li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-500 text-lg">check_circle</span>30% desconto</li><li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-500 text-lg">check_circle</span>Frete grátis</li><li class="flex items-center gap-2"><span class="material-symbols-outlined text-green-500 text-lg">check_circle</span>Revista digital</li></ul>
+            <a href="login.html?redirect=assinaturas.html" class="block w-full text-center bg-primary hover:bg-primary/90 text-white font-bold py-3 rounded-xl transition-all">Login para Assinar</a>
+        </div>
+    `;
+}
+
+document.getElementById('modal-submit-btn').addEventListener('click', async () => {
+    if (!selectedPlan) return;
+    const btn = document.getElementById('modal-submit-btn');
+    const errorEl = document.getElementById('modal-error');
+    if (modalPaymentMethod === 'credit_card') {
+        const cardNumber = document.getElementById('modal-card-number').value.trim();
+        const cardExpiry = document.getElementById('modal-card-expiry').value.trim();
+        const cardCvv = document.getElementById('modal-card-cvv').value.trim();
+        if (!cardNumber || !cardExpiry || !cardCvv) { errorEl.textContent = 'Preencha os dados do cartão.'; errorEl.classList.remove('hidden'); return; }
+    }
+    errorEl.classList.add('hidden');
+    btn.disabled = true;
+    btn.innerHTML = '<div class="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin mx-auto"></div>';
+    const { ok, data } = await Subscriptions.subscribe(selectedPlan.id, modalPaymentMethod);
+    if (ok) { toast('Assinatura ativada!', 'success'); closeModal(); setTimeout(() => window.location.href = 'perfil.html', 1000); }
+    else { errorEl.textContent = data.message || 'Erro.'; errorEl.classList.remove('hidden'); btn.disabled = false; btn.innerHTML = '<span class="material-symbols-outlined">check_circle</span> Confirmar'; }
+});
+
+document.addEventListener('DOMContentLoaded', () => { updateNavUser(); updateCartBadge(); loadPlans(); });
+</script>
+</body>
+</html>

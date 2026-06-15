@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html class="dark" lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Meus Pedidos | The Vintage Sound</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet"/>
+<script>
+tailwind.config = {
+    darkMode: 'class',
+    theme: {
+        extend: {
+            colors: {
+                primary: '#bd0f2c',
+                'bg-light': '#f8f6f6',
+                'bg-dark': '#12080a',
+                'surface': '#1e0f11',
+                'border': '#3d2226',
+                'muted': '#b99da1',
+            },
+        },
+    },
+}
+</script>
+<style>body { font-family: 'Plus Jakarta Sans', sans-serif; }
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  font-family: 'Material Symbols Outlined';
+}
+</style>
+</head>
+<body class="bg-bg-light dark:bg-bg-dark text-gray-900 dark:text-white min-h-screen">
+
+<!-- HEADER -->
+<header class="border-b border-border bg-white/50 dark:bg-bg-dark/50 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+        <a href="index.html" class="flex items-center gap-3">
+            <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+                <span class="material-symbols-outlined text-white text-xl">album</span>
+            </div>
+            <span class="text-xl font-bold tracking-tight">The Vintage Sound</span>
+        </a>
+        <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-gray-500 dark:text-gray-400">
+            <a href="loja.html" class="hover:text-primary transition-colors">Loja</a>
+            <a href="assinaturas.html" class="hover:text-primary transition-colors">Assinaturas</a>
+            <a href="sobre.html" class="hover:text-primary transition-colors">Sobre</a>
+        </nav>
+        <div class="flex items-center gap-4">
+            <a href="carrinho.html" class="relative p-2 hover:bg-gray-100 dark:hover:bg-surface rounded-lg transition-colors">
+                <span class="material-symbols-outlined">shopping_bag</span>
+                <span id="cart-badge" class="absolute -top-1 -right-1 w-5 h-5 bg-primary text-[10px] font-bold rounded-full flex items-center justify-center">0</span>
+            </a>
+            <a href="perfil.html" class="p-2 hover:bg-gray-100 dark:hover:bg-surface rounded-lg transition-colors">
+                <span class="material-symbols-outlined">person</span>
+            </a>
+        </div>
+    </div>
+</header>
+
+<!-- MAIN -->
+<main class="max-w-7xl mx-auto px-6 py-12">
+
+    <!-- NOT LOGGED IN -->
+    <div id="not-logged-in" class="hidden text-center py-20">
+        <span class="material-symbols-outlined text-primary text-6xl mb-6">lock</span>
+        <h2 class="text-3xl font-bold mb-4">Faça login para ver seus pedidos</h2>
+        <a href="login.html?redirect=pedidos.html" class="bg-primary text-white px-8 py-3 rounded-lg font-bold hover:bg-primary/90 transition-all">Fazer Login</a>
+    </div>
+
+    <!-- LOADING -->
+    <div id="loading" class="hidden flex justify-center py-12">
+        <div class="animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent"></div>
+    </div>
+
+    <!-- CONTENT -->
+    <div id="content" class="hidden">
+        <div class="mb-8">
+            <nav class="flex items-center gap-2 text-sm text-gray-500 mb-4">
+                <a href="index.html" class="hover:underline">Início</a>
+                <span class="material-symbols-outlined text-sm">chevron_right</span>
+                <span>Meus Pedidos</span>
+            </nav>
+            <h2 class="text-3xl font-bold">Meus Pedidos</h2>
+            <p class="text-gray-500 mt-2">Acompanhe o status dos seus pedidos.</p>
+        </div>
+
+        <div id="orders-list" class="space-y-6">
+            <!-- Orders loaded dynamically -->
+        </div>
+    </div>
+</main>
+
+<!-- FOOTER -->
+<footer class="bg-white dark:bg-surface border-t border-border py-8">
+    <div class="max-w-7xl mx-auto px-6 flex justify-between items-center text-sm text-gray-500">
+        <a href="index.html" class="flex items-center gap-2">
+            <div class="w-6 h-6 bg-primary rounded flex items-center justify-center">
+                <span class="material-symbols-outlined text-white text-sm">album</span>
+            </div>
+            <span class="font-bold">The Vintage Sound</span>
+        </a>
+        <p>© 2024 The Vintage Sound.</p>
+    </div>
+</footer>
+
+<script src="api.js"></script>
+<script>
+function getStatusClass(s) { return { pending: 'bg-yellow-500/20 text-yellow-500', confirmed: 'bg-blue-500/20 text-blue-500', shipped: 'bg-purple-500/20 text-purple-500', delivered: 'bg-green-500/20 text-green-500', cancelled: 'bg-red-500/20 text-red-500' }[s] || 'bg-gray-500/20 text-gray-500'; }
+function getStatusLabel(s) { return { pending: 'Pendente', confirmed: 'Confirmado', shipped: 'Enviado', delivered: 'Entregue', cancelled: 'Cancelado' }[s] || s; }
+function getStatusIcon(s) { return { pending: 'schedule', confirmed: 'check_circle', shipped: 'local_shipping', delivered: 'check_circle', cancelled: 'cancel' }[s] || 'receipt'; }
+
+async function loadOrders() {
+    if (!isLoggedIn()) { document.getElementById('not-logged-in').classList.remove('hidden'); document.getElementById('loading').classList.add('hidden'); return; }
+    document.getElementById('loading').classList.remove('hidden');
+    document.getElementById('not-logged-in').classList.add('hidden');
+    const { ok, data } = await Orders.myOrders();
+    document.getElementById('loading').classList.add('hidden');
+    if (!ok || !data.data.length) {
+        document.getElementById('content').classList.remove('hidden');
+        document.getElementById('orders-list').innerHTML = '<div class="text-center py-16 bg-surface rounded-xl border border-border"><span class="material-symbols-outlined text-muted text-6xl mb-4 block">receipt_long</span><h3 class="text-2xl font-bold mb-4">Nenhum pedido</h3><a href="loja.html" class="bg-primary text-white px-6 py-3 rounded-lg font-bold">Explorar Catálogo</a></div>';
+        return;
+    }
+    document.getElementById('content').classList.remove('hidden');
+    const container = document.getElementById('orders-list');
+    container.innerHTML = data.data.map(order => `
+        <div class="bg-surface rounded-xl border border-border overflow-hidden">
+            <div class="flex flex-wrap items-center justify-between gap-4 p-6 border-b border-border">
+                <div class="flex flex-wrap items-center gap-6">
+                    <div><span class="text-xs text-muted uppercase tracking-widest">Pedido</span><p class="font-bold text-lg">#${order.orderNumber}</p></div>
+                    <div><span class="text-xs text-muted uppercase tracking-widest">Data</span><p class="font-medium">${formatDate(order.createdAt)}</p></div>
+                    <div><span class="text-xs text-muted uppercase tracking-widest">Total</span><p class="font-bold text-primary">${formatPrice(order.total)}</p></div>
+                </div>
+                <span class="px-4 py-2 ${getStatusClass(order.status)} text-sm font-bold rounded-full uppercase flex items-center gap-2">
+                    <span class="material-symbols-outlined text-lg">${getStatusIcon(order.status)}</span>
+                    ${getStatusLabel(order.status)}
+                </span>
+            </div>
+            <div class="p-6">
+                <h4 class="text-xs font-bold uppercase text-muted tracking-widest mb-4">Itens</h4>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    ${order.items.map(item => `
+                        <div class="flex items-center gap-4 bg-bg-dark/30 rounded-lg p-3">
+                            <img class="w-14 h-14 rounded object-cover" src="${item.imageUrl || 'https://via.placeholder.com/100'}" alt="${item.title}"/>
+                            <div class="flex-1 min-w-0">
+                                <p class="font-medium truncate">${item.title}</p>
+                                <p class="text-muted text-sm truncate">${item.artist}</p>
+                                <p class="text-xs text-muted">Qtd: ${item.quantity}</p>
+                            </div>
+                            <p class="font-bold">${formatPrice(item.subtotal)}</p>
+                        </div>
+                    `).join('')}
+                </div>
+                <div class="mt-6 pt-6 border-t border-border">
+                    <h4 class="text-xs font-bold uppercase text-muted tracking-widest mb-2">Endereço</h4>
+                    <p class="text-sm">${order.shippingAddress.name}<br/>${order.shippingAddress.address}<br/>${order.shippingAddress.city} - ${order.shippingAddress.state}<br/>CEP: ${order.shippingAddress.cep}</p>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+document.addEventListener('DOMContentLoaded', () => { updateCartBadge(); loadOrders(); });
+</script>
+</body>
+</html>

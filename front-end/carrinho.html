@@ -1,278 +1,410 @@
 <!DOCTYPE html>
-
-<html class="dark" lang="pt-br"><head>
+<html class="dark" lang="pt-BR">
+<head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>The Vintage Sound - Shopping Bag &amp; Checkout</title>
+<title>Carrinho | The Vintage Sound</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "primary": "#bd0f2c",
-                        "background-light": "#f8f6f6",
-                        "background-dark": "#12080a",
-                        "surface-dark": "#1e0f11",
-                        "border-dark": "#3d2226",
-                    },
-                    fontFamily: {
-                        "display": ["Plus Jakarta Sans", "sans-serif"]
-                    },
-                    borderRadius: {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                },
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet"/>
+<script>
+tailwind.config = {
+    darkMode: 'class',
+    theme: {
+        extend: {
+            colors: {
+                primary: '#bd0f2c',
+                'bg-light': '#f8f6f6',
+                'bg-dark': '#12080a',
+                'surface': '#1e0f11',
+                'border': '#3d2226',
             },
-        }
-    </script>
-<style>
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-        }
-        .hide-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .hide-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-    </style>
+        },
+    },
+}
+</script>
+<style>body { font-family: 'Plus Jakarta Sans', sans-serif; }
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  font-family: 'Material Symbols Outlined';
+}
+</style>
 </head>
-<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
-<!-- Top Navigation Bar -->
-<header class="border-b border-slate-200 dark:border-border-dark bg-white/50 dark:bg-background-dark/50 backdrop-blur-md sticky top-0 z-50">
-<div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-<div class="flex items-center gap-12">
-<a class="flex items-center gap-3" href="index.html">
-<div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white">
-<span class="material-symbols-outlined text-xl">album</span>
-</div>
-<h1 class="text-xl font-extrabold tracking-tight">The Vintage Sound</h1>
-</a>
-<nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-500 dark:text-slate-400">
-<a class="hover:text-primary transition-colors" href="loja.html">Loja</a>
-<a class="hover:text-primary transition-colors" href="#">Assinaturas</a>
-<a class="hover:text-primary transition-colors" href="#">Coleções</a>
-<a class="hover:text-primary transition-colors" href="sobre.html">Sobre</a>
-</nav>
-</div>
-<div class="flex items-center gap-6">
-<button class="p-2 hover:bg-slate-100 dark:hover:bg-surface-dark rounded-full transition-colors">
-<span class="material-symbols-outlined">search</span>
-</button>
-<a class="p-2 hover:bg-slate-100 dark:hover:bg-surface-dark rounded-full transition-colors relative" href="carrinho.html">
-<span class="material-symbols-outlined">shopping_bag</span>
-<span class="absolute top-1 right-1 w-4 h-4 bg-primary text-[10px] flex items-center justify-center rounded-full text-white">2</span>
-</a>
-<a class="p-2 hover:bg-slate-100 dark:hover:bg-surface-dark rounded-full transition-colors" href="login.html">
-<span class="material-symbols-outlined">person</span>
-</a>
-</div>
-</div>
+<body class="bg-bg-light dark:bg-bg-dark text-gray-900 dark:text-white min-h-screen">
+
+<!-- HEADER -->
+<header class="border-b border-border bg-white/50 dark:bg-bg-dark/50 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+        <a href="index.html" class="flex items-center gap-3">
+            <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+                <span class="material-symbols-outlined text-white text-xl">album</span>
+            </div>
+            <span class="text-xl font-bold tracking-tight">The Vintage Sound</span>
+        </a>
+        <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-gray-500 dark:text-gray-400">
+            <a href="loja.html" class="hover:text-primary transition-colors">Loja</a>
+            <a href="assinaturas.html" class="hover:text-primary transition-colors">Assinaturas</a>
+            <a href="sobre.html" class="hover:text-primary transition-colors">Sobre</a>
+        </nav>
+        <div class="flex items-center gap-4">
+            <a href="carrinho.html" class="relative p-2 hover:bg-gray-100 dark:hover:bg-surface rounded-lg transition-colors">
+                <span class="material-symbols-outlined">shopping_bag</span>
+                <span id="cart-badge" class="absolute -top-1 -right-1 w-5 h-5 bg-primary text-[10px] font-bold rounded-full flex items-center justify-center">0</span>
+            </a>
+            <a href="perfil.html" class="p-2 hover:bg-gray-100 dark:hover:bg-surface rounded-lg transition-colors">
+                <span class="material-symbols-outlined">person</span>
+            </a>
+        </div>
+    </div>
 </header>
+
+<!-- MAIN -->
 <main class="max-w-7xl mx-auto px-6 py-12">
-<!-- Breadcrumbs & Title -->
-<div class="mb-12">
-<nav class="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400 mb-4">
-<a class="hover:underline" href="index.html">Início</a>
-<span class="material-symbols-outlined text-sm">chevron_right</span>
-<span class="text-slate-900 dark:text-slate-100">Carrinho de Compras</span>
-</nav>
-<h2 class="text-4xl font-bold tracking-tight">Revise sua coleção</h2>
-<p class="text-slate-500 dark:text-slate-400 mt-2">Quase pronto para rodar. Revise seus itens e prossiga para o checkout seguro.</p>
-</div>
-<div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
-<!-- Shopping Bag Content (Left) -->
-<div class="lg:col-span-7 space-y-8">
-<!-- Items List -->
-<div class="space-y-6">
-<!-- Item 1: Subscription -->
-<div class="flex gap-6 pb-6 border-b border-slate-200 dark:border-border-dark items-center">
-<div class="w-32 h-32 bg-primary/10 rounded-xl flex items-center justify-center overflow-hidden">
-<div class="bg-primary/20 p-4 rounded-full">
-<span class="material-symbols-outlined text-primary text-4xl">loyalty</span>
-</div>
-</div>
-<div class="flex-1">
-<div class="flex justify-between items-start">
-<div>
-<span class="text-[10px] font-bold uppercase tracking-widest text-primary mb-1 block">Plano Mensal</span>
-<h3 class="text-lg font-bold">Assinatura Collector's Circle</h3>
-<p class="text-sm text-slate-500 dark:text-slate-400">1 Disco curado por mês + Exclusivos para Membros</p>
-</div>
-<button class="text-slate-400 hover:text-primary transition-colors">
-<span class="material-symbols-outlined">delete</span>
-</button>
-</div>
-<div class="flex justify-between items-end mt-4">
-<div class="flex items-center border border-slate-200 dark:border-border-dark rounded-lg px-2">
-<button class="p-1 text-slate-400 hover:text-slate-900 dark:hover:text-white">
-<span class="material-symbols-outlined text-sm">remove</span>
-</button>
-<span class="w-8 text-center text-sm font-semibold">1</span>
-<button class="p-1 text-slate-400 hover:text-slate-900 dark:hover:text-white">
-<span class="material-symbols-outlined text-sm">add</span>
-</button>
-</div>
-<span class="text-lg font-bold">R$ 149,90</span>
-</div>
-</div>
-</div>
-<!-- Item 2: Individual Record -->
-<div class="flex gap-6 pb-6 border-b border-slate-200 dark:border-border-dark items-center">
-<div class="w-32 h-32 bg-slate-200 dark:bg-surface-dark rounded-xl overflow-hidden shadow-lg border border-white/5">
-<img alt="The Dark Side of the Moon" class="w-full h-full object-cover" data-alt="Classic vinyl record cover art with prism" src="https://imgs.search.brave.com/0E2txGz-yYIf-sF0ytgcF4k-SH7j1vNJqOgdXyyG-rc/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMtbmEuc3NsLWlt/YWdlcy1hbWF6b24u/Y29tL2ltYWdlcy9J/LzYxMFJHSmxHMVpM/LmpwZw"/>
-</div>
-<div class="flex-1">
-<div class="flex justify-between items-start">
-<div>
-<span class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-1 block">Prensagem Audiófila 180g</span>
-<h3 class="text-lg font-bold">The Dark Side of the Moon</h3>
-<p class="text-sm text-slate-500 dark:text-slate-400">Pink Floyd • Remasterização 2023</p>
-</div>
-<button class="text-slate-400 hover:text-primary transition-colors">
-<span class="material-symbols-outlined">delete</span>
-</button>
-</div>
-<div class="flex justify-between items-end mt-4">
-<div class="flex items-center border border-slate-200 dark:border-border-dark rounded-lg px-2">
-<button class="p-1 text-slate-400 hover:text-slate-900 dark:hover:text-white">
-<span class="material-symbols-outlined text-sm">remove</span>
-</button>
-<span class="w-8 text-center text-sm font-semibold">1</span>
-<button class="p-1 text-slate-400 hover:text-slate-900 dark:hover:text-white">
-<span class="material-symbols-outlined text-sm">add</span>
-</button>
-</div>
-<span class="text-lg font-bold">R$ 248,00</span>
-</div>
-</div>
-</div>
-</div>
-<!-- Shipping Form (Airy design) -->
-<div class="pt-8">
-<h3 class="text-xl font-bold mb-6 flex items-center gap-2"><span class="material-symbols-outlined">local_shipping</span> Endereço de Entrega</h3>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-<div class="space-y-2">
-<label class="text-xs font-bold uppercase text-slate-400">Nome Completo</label>
-<input class="w-full bg-transparent border-slate-200 dark:border-border-dark rounded-lg focus:ring-primary focus:border-primary" placeholder="Seu nome aqui" type="text"/>
-</div>
-<div class="space-y-2">
-<label class="text-xs font-bold uppercase text-slate-400">CEP</label>
-<input class="w-full bg-transparent border-slate-200 dark:border-border-dark rounded-lg focus:ring-primary focus:border-primary" placeholder="00000-000" type="text"/>
-</div>
-<div class="md:col-span-2 space-y-2">
-<label class="text-xs font-bold uppercase text-slate-400">Endereço</label>
-<input class="w-full bg-transparent border-slate-200 dark:border-border-dark rounded-lg focus:ring-primary focus:border-primary" placeholder="Rua, número e bairro" type="text"/>
-</div>
-</div>
-</div>
-</div>
-<!-- Checkout Sidebar (Right) -->
-<div class="lg:col-span-5">
-<div class="bg-white dark:bg-surface-dark p-8 rounded-2xl border border-slate-200 dark:border-border-dark shadow-xl sticky top-28">
-<h3 class="text-2xl font-bold mb-8">Resumo</h3>
-<div class="space-y-4 mb-8">
-<div class="flex justify-between text-slate-500 dark:text-slate-400">
-<span>Subtotal</span>
-<span>R$ 397,90</span>
-</div>
-<div class="flex justify-between text-slate-500 dark:text-slate-400">
-<span>Frete</span>
-<span class="text-green-500 font-medium">Grátis</span>
-</div>
-<div class="pt-4 border-t border-slate-200 dark:border-border-dark flex justify-between items-end">
-<span class="text-lg font-medium">Total</span>
-<span class="text-3xl font-black text-primary">R$ 397,90</span>
-</div>
-</div>
-<!-- Payment Method Toggle -->
-<div class="mb-8">
-<label class="text-xs font-bold uppercase text-slate-400 mb-4 block">Selecione o Método de Pagamento</label>
-<div class="grid grid-cols-2 gap-4">
-<button class="flex flex-col items-center gap-2 p-4 rounded-xl border-2 border-primary bg-primary/5 text-primary transition-all">
-<span class="material-symbols-outlined">credit_card</span>
-<span class="text-xs font-bold">Cartão de Crédito</span>
-</button>
-<button class="flex flex-col items-center gap-2 p-4 rounded-xl border-2 border-slate-200 dark:border-border-dark hover:border-slate-300 dark:hover:border-slate-700 transition-all">
-<span class="material-symbols-outlined">qr_code_2</span>
-<span class="text-xs font-bold">PIX</span>
-</button>
-</div>
-</div>
-<!-- Credit Card Details -->
-<div class="space-y-4 mb-10">
-<div class="space-y-2">
-<label class="text-xs font-bold uppercase text-slate-400">Número do Cartão</label>
-<div class="relative">
-<input class="w-full bg-transparent border-slate-200 dark:border-border-dark rounded-lg pl-10 focus:ring-primary focus:border-primary" placeholder="0000 0000 0000 0000" type="text"/>
-<span class="material-symbols-outlined absolute left-3 top-2.5 text-slate-400">payments</span>
-</div>
-</div>
-<div class="grid grid-cols-2 gap-4">
-<div class="space-y-2">
-<label class="text-xs font-bold uppercase text-slate-400">Data de Validade</label>
-<input class="w-full bg-transparent border-slate-200 dark:border-border-dark rounded-lg focus:ring-primary focus:border-primary" placeholder="MM/YY" type="text"/>
-</div>
-<div class="space-y-2">
-<label class="text-xs font-bold uppercase text-slate-400">CVV</label>
-<input class="w-full bg-transparent border-slate-200 dark:border-border-dark rounded-lg focus:ring-primary focus:border-primary" placeholder="123" type="text"/>
-</div>
-</div>
-</div>
-<button class="w-full bg-primary hover:bg-primary/90 text-white py-5 rounded-xl font-bold text-lg shadow-lg shadow-primary/20 transition-all active:scale-[0.98] flex items-center justify-center gap-3"><span class="material-symbols-outlined">lock</span> Finalizar Compra</button>
-<div class="mt-6 flex items-center justify-center gap-6 text-slate-400">
-<div class="flex items-center gap-1 text-[10px] uppercase font-bold tracking-widest"><span class="material-symbols-outlined text-sm">verified_user</span> SSL Seguro</div>
-<div class="flex items-center gap-1 text-[10px] uppercase font-bold tracking-widest"><span class="material-symbols-outlined text-sm">airport_shuttle</span> Seguro</div>
-</div>
-</div>
-</div>
-</div>
-<!-- Extra whitespace for airy feel -->
-<div class="h-24"></div>
-<!-- Trust Section -->
-<div class="border-t border-slate-200 dark:border-border-dark py-12">
-<div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
-<div class="space-y-3">
-<span class="material-symbols-outlined text-3xl text-primary">high_quality</span>
-<h4 class="font-bold">Prensagens Originais</h4>
-<p class="text-sm text-slate-500 dark:text-slate-400">Trabalhamos apenas com selos oficiais e colecionadores confiáveis.</p>
-</div>
-<div class="space-y-3">
-<span class="material-symbols-outlined text-3xl text-primary">box</span>
-<h4 class="font-bold">Embalagem à Prova de Tudo</h4>
-<p class="text-sm text-slate-500 dark:text-slate-400">Caixas personalizadas de parede dupla para evitar danos nos cantos.</p>
-</div>
-<div class="space-y-3">
-<span class="material-symbols-outlined text-3xl text-primary">eco</span>
-<h4 class="font-bold">Música Sustentável</h4>
-<p class="text-sm text-slate-500 dark:text-slate-400">Materiais de envio reciclados e entrega com emissão neutra de carbono.</p>
-</div>
-</div>
-</div>
+
+    <!-- NOT LOGGED IN -->
+    <div id="not-logged-in" class="hidden text-center py-20">
+        <span class="material-symbols-outlined text-primary text-6xl mb-6">lock</span>
+        <h2 class="text-3xl font-bold mb-4">Faça login para ver seu carrinho</h2>
+        <p class="text-gray-500 mb-8">Você precisa estar logado para adicionar itens.</p>
+        <a href="login.html?redirect=carrinho.html" class="bg-primary text-white px-8 py-3 rounded-lg font-bold hover:bg-primary/90 transition-all">Fazer Login</a>
+    </div>
+
+    <!-- LOADING -->
+    <div id="loading" class="hidden flex justify-center py-12">
+        <div class="animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent"></div>
+    </div>
+
+    <!-- EMPTY CART -->
+    <div id="empty-cart" class="hidden text-center py-20">
+        <span class="material-symbols-outlined text-gray-400 text-6xl mb-6">shopping_bag</span>
+        <h2 class="text-3xl font-bold mb-4">Carrinho vazio</h2>
+        <p class="text-gray-500 mb-8">Explore nosso catálogo de vinil.</p>
+        <a href="loja.html" class="bg-primary text-white px-8 py-3 rounded-lg font-bold hover:bg-primary/90 transition-all">Ver Catálogo</a>
+    </div>
+
+    <!-- CART CONTENT -->
+    <div id="cart-content" class="hidden">
+        <div class="mb-8">
+            <nav class="flex items-center gap-2 text-sm text-gray-500 mb-4">
+                <a href="index.html" class="hover:underline">Início</a>
+                <span class="material-symbols-outlined text-sm">chevron_right</span>
+                <span>Carrinho</span>
+            </nav>
+            <h2 class="text-3xl font-bold">Revise sua coleção</h2>
+            <p class="text-gray-500 mt-2">Quase pronto. Revise seus itens e finalize.</p>
+        </div>
+
+        <div class="grid lg:grid-cols-12 gap-12">
+            <!-- ITEMS -->
+            <div class="lg:col-span-7 space-y-6" id="cart-items">
+                <!-- Items loaded dynamically -->
+            </div>
+
+            <!-- CHECKOUT SIDEBAR -->
+            <div class="lg:col-span-5">
+                <div class="bg-white dark:bg-surface p-8 rounded-2xl border border-border shadow-xl sticky top-24">
+                    <h3 class="text-xl font-bold mb-6">Resumo</h3>
+                    <div class="space-y-3 mb-6">
+                        <div class="flex justify-between text-gray-500">
+                            <span>Subtotal</span>
+                            <span id="summary-subtotal">R$ 0,00</span>
+                        </div>
+                        <div class="flex justify-between text-gray-500">
+                            <span>Frete</span>
+                            <span class="text-green-500 font-medium">Grátis</span>
+                        </div>
+                        <div class="pt-3 border-t border-border flex justify-between items-end">
+                            <span class="font-medium">Total</span>
+                            <span id="summary-total" class="text-2xl font-black text-primary">R$ 0,00</span>
+                        </div>
+                    </div>
+
+                    <!-- PAYMENT -->
+                    <div class="mb-6">
+                        <label class="text-xs font-bold uppercase text-gray-500 mb-3 block">Pagamento</label>
+                        <div class="grid grid-cols-2 gap-3">
+                            <button type="button" id="pay-card" class="flex items-center justify-center gap-2 p-3 rounded-xl border-2 border-primary bg-primary/5 text-primary">
+                                <span class="material-symbols-outlined">credit_card</span>
+                                <span class="text-xs font-bold">Cartão</span>
+                            </button>
+                            <button type="button" id="pay-pix" class="flex items-center justify-center gap-2 p-3 rounded-xl border-2 border-border hover:border-gray-400 transition-all">
+                                <span class="material-symbols-outlined">qr_code_2</span>
+                                <span class="text-xs font-bold">PIX</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- CARD DETAILS -->
+                    <div id="card-details" class="hidden space-y-3 mb-6">
+                        <div>
+                            <label class="text-xs font-bold uppercase text-gray-500 mb-1 block">Número do Cartão</label>
+                            <input id="card-number" class="w-full bg-transparent border border-border rounded-lg py-2 px-3 focus:border-primary focus:outline-none" placeholder="0000 0000 0000 0000" type="text"/>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="text-xs font-bold uppercase text-gray-500 mb-1 block">Validade</label>
+                                <input id="card-expiry" class="w-full bg-transparent border border-border rounded-lg py-2 px-3 focus:border-primary focus:outline-none" placeholder="MM/YY" type="text"/>
+                            </div>
+                            <div>
+                                <label class="text-xs font-bold uppercase text-gray-500 mb-1 block">CVV</label>
+                                <input id="card-cvv" class="w-full bg-transparent border border-border rounded-lg py-2 px-3 focus:border-primary focus:outline-none" placeholder="123" type="text"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="checkout-error" class="hidden text-red-500 text-sm bg-red-500/10 border border-red-500/30 rounded-lg px-4 py-3 mb-4"></div>
+
+                    <button id="checkout-btn" class="w-full bg-primary hover:bg-primary/90 text-white py-4 rounded-xl font-bold text-lg transition-all flex items-center justify-center gap-2">
+                        <span class="material-symbols-outlined">lock</span> Finalizar Compra
+                    </button>
+
+                    <div class="mt-4 flex items-center justify-center gap-4 text-gray-400 text-[10px] uppercase tracking-widest">
+                        <span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">verified_user</span> SSL</span>
+                        <span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">local_shipping</span> Frete Grátis</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SHIPPING FORM -->
+        <div class="mt-12 pt-8 border-t border-border">
+            <h3 class="text-xl font-bold mb-6 flex items-center gap-2">
+                <span class="material-symbols-outlined">local_shipping</span> Endereço de Entrega
+            </h3>
+            <form id="shipping-form" class="grid md:grid-cols-2 gap-4 max-w-2xl">
+                <div>
+                    <label class="text-xs font-bold uppercase text-gray-500 mb-1 block">Nome Completo</label>
+                    <input id="ship-name" class="w-full bg-transparent border border-border rounded-lg py-2 px-3 focus:border-primary focus:outline-none" placeholder="Seu nome" type="text" required/>
+                </div>
+                <div>
+                    <label class="text-xs font-bold uppercase text-gray-500 mb-1 block">CEP</label>
+                    <input id="ship-cep" class="w-full bg-transparent border border-border rounded-lg py-2 px-3 focus:border-primary focus:outline-none" placeholder="00000-000" type="text" required/>
+                </div>
+                <div class="md:col-span-2">
+                    <label class="text-xs font-bold uppercase text-gray-500 mb-1 block">Endereço</label>
+                    <input id="ship-address" class="w-full bg-transparent border border-border rounded-lg py-2 px-3 focus:border-primary focus:outline-none" placeholder="Rua, número, bairro" type="text" required/>
+                </div>
+                <div>
+                    <label class="text-xs font-bold uppercase text-gray-500 mb-1 block">Cidade</label>
+                    <input id="ship-city" class="w-full bg-transparent border border-border rounded-lg py-2 px-3 focus:border-primary focus:outline-none" placeholder="Cidade" type="text" required/>
+                </div>
+                <div>
+                    <label class="text-xs font-bold uppercase text-gray-500 mb-1 block">Estado (UF)</label>
+                    <input id="ship-state" class="w-full bg-transparent border border-border rounded-lg py-2 px-3 focus:border-primary focus:outline-none" placeholder="SP" maxlength="2" type="text" required/>
+                </div>
+            </form>
+        </div>
+    </div>
 </main>
-<footer class="bg-white dark:bg-surface-dark border-t border-slate-200 dark:border-border-dark py-12">
-<div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
-<a class="flex items-center gap-3 opacity-50" href="index.html">
-<div class="w-6 h-6 bg-slate-400 dark:bg-slate-600 rounded flex items-center justify-center text-white">
-<span class="material-symbols-outlined text-sm">album</span>
+
+<!-- SUCCESS MODAL -->
+<div id="success-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+    <div class="bg-surface border border-border rounded-2xl p-8 max-w-md mx-4 text-center">
+        <div class="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+            <span class="material-symbols-outlined text-green-500 text-3xl">check_circle</span>
+        </div>
+        <h3 class="text-2xl font-bold mb-2">Pedido Realizado!</h3>
+        <p id="order-message" class="text-gray-400 mb-6">Seu pedido foi criado com sucesso.</p>
+        <div class="flex gap-4">
+            <a class="flex-1 bg-primary text-white py-3 rounded-lg font-bold" href="pedidos.html">Ver Pedidos</a>
+            <a class="flex-1 border border-border py-3 rounded-lg font-bold" href="loja.html">Continuar</a>
+        </div>
+    </div>
 </div>
-<span class="font-bold tracking-tight">The Vintage Sound</span>
-</a>
-<div class="flex gap-8 text-sm text-slate-500 dark:text-slate-400">
-<a class="hover:text-primary transition-colors" href="#">Política de Privacidade</a>
-<a class="hover:text-primary transition-colors" href="#">Termos de Serviço</a>
-<a class="hover:text-primary transition-colors" href="#">Informações de Envio</a>
+
+<!-- TRUST -->
+<div class="border-t border-border py-12">
+    <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-8 text-center">
+        <div>
+            <span class="material-symbols-outlined text-primary text-3xl mb-3 block">high_quality</span>
+            <h4 class="font-bold">Prensagens Originais</h4>
+            <p class="text-sm text-gray-500 mt-1">Selos oficiais e fontes confiáveis.</p>
+        </div>
+        <div>
+            <span class="material-symbols-outlined text-primary text-3xl mb-3 block">inventory_2</span>
+            <h4 class="font-bold">Embalagem Reforçada</h4>
+            <p class="text-sm text-gray-500 mt-1">Proteção garantida no transporte.</p>
+        </div>
+        <div>
+            <span class="material-symbols-outlined text-primary text-3xl mb-3 block">eco</span>
+            <h4 class="font-bold">Entrega Sustentável</h4>
+            <p class="text-sm text-gray-500 mt-1">Materiais reciclados.</p>
+        </div>
+    </div>
 </div>
-<p class="text-sm text-slate-400">© 2024 The Vintage Sound. Criado para audiófilos.</p>
-</div>
+
+<!-- FOOTER -->
+<footer class="bg-white dark:bg-surface border-t border-border py-8">
+    <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-500">
+        <a href="index.html" class="flex items-center gap-2">
+            <div class="w-6 h-6 bg-primary rounded flex items-center justify-center">
+                <span class="material-symbols-outlined text-white text-sm">album</span>
+            </div>
+            <span class="font-bold">The Vintage Sound</span>
+        </a>
+        <p>© 2024 The Vintage Sound.</p>
+    </div>
 </footer>
-</body></html>
+
+<script src="api.js"></script>
+<script>
+let paymentMethod = 'credit_card';
+
+function updatePaymentUI() {
+    const cardBtn = document.getElementById('pay-card');
+    const pixBtn = document.getElementById('pay-pix');
+    const cardDetails = document.getElementById('card-details');
+    if (paymentMethod === 'credit_card') {
+        cardBtn.classList.add('border-primary', 'bg-primary/5', 'text-primary');
+        cardBtn.classList.remove('border-border');
+        pixBtn.classList.remove('border-primary', 'bg-primary/5', 'text-primary');
+        pixBtn.classList.add('border-border');
+        cardDetails.classList.remove('hidden');
+    } else {
+        pixBtn.classList.add('border-primary', 'bg-primary/5', 'text-primary');
+        pixBtn.classList.remove('border-border');
+        cardBtn.classList.remove('border-primary', 'bg-primary/5', 'text-primary');
+        cardBtn.classList.add('border-border');
+        cardDetails.classList.add('hidden');
+    }
+}
+
+document.getElementById('pay-card').addEventListener('click', () => { paymentMethod = 'credit_card'; updatePaymentUI(); });
+document.getElementById('pay-pix').addEventListener('click', () => { paymentMethod = 'pix'; updatePaymentUI(); });
+
+async function loadCart() {
+    if (!isLoggedIn()) { document.getElementById('not-logged-in').classList.remove('hidden'); document.getElementById('loading').classList.add('hidden'); return; }
+    document.getElementById('loading').classList.remove('hidden');
+    document.getElementById('not-logged-in').classList.add('hidden');
+    const { ok, data } = await Cart.get();
+    document.getElementById('loading').classList.add('hidden');
+    if (!ok || !data.data.items.length) { document.getElementById('empty-cart').classList.remove('hidden'); return; }
+    document.getElementById('cart-content').classList.remove('hidden');
+    renderCartItems(data.data);
+    updateSummary(data.data);
+}
+
+function renderCartItems(cart) {
+    const container = document.getElementById('cart-items');
+    container.innerHTML = cart.items.map(item => `
+        <div class="flex gap-6 p-6 border-b border-border">
+            <div class="w-24 h-24 bg-surface rounded-lg overflow-hidden flex-shrink-0">
+                <img class="w-full h-full object-cover" src="${item.product.imageUrl || 'https://via.placeholder.com/200'}" alt="${item.product.title}"/>
+            </div>
+            <div class="flex-1">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <p class="text-xs text-gray-500 uppercase tracking-widest mb-1">${item.product.pressing || 'Vinil'}</p>
+                        <h3 class="font-bold">${item.product.title}</h3>
+                        <p class="text-sm text-gray-500">${item.product.artist}</p>
+                    </div>
+                    <button onclick="removeItem('${item.id}', '${item.product.title.replace(/'/g, "\\'")}')" class="text-gray-400 hover:text-red-500 transition-colors">
+                        <span class="material-symbols-outlined">delete</span>
+                    </button>
+                </div>
+                <div class="flex justify-between items-center mt-4">
+                    <div class="flex items-center border border-border rounded-lg">
+                        <button onclick="updateQuantity('${item.id}', ${item.quantity - 1})" class="p-2 text-gray-400 hover:text-white">
+                            <span class="material-symbols-outlined text-sm">remove</span>
+                        </button>
+                        <span class="w-8 text-center text-sm font-semibold">${item.quantity}</span>
+                        <button onclick="updateQuantity('${item.id}', ${item.quantity + 1})" class="p-2 text-gray-400 hover:text-white">
+                            <span class="material-symbols-outlined text-sm">add</span>
+                        </button>
+                    </div>
+                    <span class="font-bold text-lg">${formatPrice(item.subtotal)}</span>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function updateSummary(cart) {
+    document.getElementById('summary-subtotal').textContent = formatPrice(cart.subtotal);
+    document.getElementById('summary-total').textContent = formatPrice(cart.total);
+}
+
+async function updateQuantity(itemId, quantity) {
+    if (quantity <= 0) { await removeItem(itemId, ''); return; }
+    const { ok } = await Cart.updateItem(itemId, quantity);
+    if (ok) loadCart();
+    else toast('Erro ao atualizar.', 'error');
+}
+
+async function removeItem(itemId, productName) {
+    const { ok } = await Cart.removeItem(itemId);
+    if (ok) { if (productName) toast(`"${productName}" removido.`, 'success'); loadCart(); updateCartBadge(); }
+    else toast('Erro ao remover.', 'error');
+}
+
+document.getElementById('checkout-btn').addEventListener('click', async () => {
+    const btn = document.getElementById('checkout-btn');
+    const errorEl = document.getElementById('checkout-error');
+    const shipName = document.getElementById('ship-name').value.trim();
+    const shipCep = document.getElementById('ship-cep').value.trim();
+    const shipAddress = document.getElementById('ship-address').value.trim();
+    const shipCity = document.getElementById('ship-city').value.trim();
+    const shipState = document.getElementById('ship-state').value.trim();
+
+    if (!shipName || !shipCep || !shipAddress || !shipCity || !shipState) { errorEl.textContent = 'Preencha o endereço.'; errorEl.classList.remove('hidden'); return; }
+    if (paymentMethod === 'credit_card') {
+        const cardNumber = document.getElementById('card-number').value.trim();
+        const cardExpiry = document.getElementById('card-expiry').value.trim();
+        const cardCvv = document.getElementById('card-cvv').value.trim();
+        if (!cardNumber || !cardExpiry || !cardCvv) { errorEl.textContent = 'Preencha os dados do cartão.'; errorEl.classList.remove('hidden'); return; }
+    }
+
+    errorEl.classList.add('hidden');
+    btn.disabled = true;
+    btn.innerHTML = '<div class="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin mx-auto"></div>';
+
+    const { ok, data } = await Orders.create({ name: shipName, cep: shipCep, address: shipAddress, city: shipCity, state: shipState }, paymentMethod);
+    if (ok) {
+        document.getElementById('order-message').textContent = `Pedido #${data.data.orderNumber} criado!`;
+        document.getElementById('success-modal').classList.remove('hidden');
+        updateCartBadge();
+    } else {
+        errorEl.textContent = data.message || 'Erro ao processar.';
+        errorEl.classList.remove('hidden');
+        btn.disabled = false;
+        btn.innerHTML = '<span class="material-symbols-outlined">lock</span> Finalizar Compra';
+    }
+});
+
+document.addEventListener('DOMContentLoaded', async () => {
+    updateCartBadge();
+    updatePaymentUI();
+
+    // Verificar se há parâmetro para adicionar produto automaticamente
+    const urlParams = new URLSearchParams(window.location.search);
+    const addProduct = urlParams.get('add');
+    console.log('Carrinho carregado, addProduct:', addProduct);
+    console.log('isLoggedIn:', isLoggedIn());
+
+    if (addProduct) {
+        console.log('Adicionando produto:', addProduct);
+
+        if (!isLoggedIn()) {
+            toast('⚠️ Faça login para adicionar.', 'error');
+            setTimeout(() => window.location.href = 'login.html?redirect=carrinho.html', 1500);
+            return;
+        }
+
+        // Adicionar ao carrinho
+        console.log('Adicionando ao carrinho...');
+        const { ok, data } = await Cart.addItem(addProduct, 1);
+        console.log('Resultado:', ok, data);
+
+        if (ok) {
+            toast('🎵 Assinatura adicionada ao carrinho!', 'success');
+            updateCartBadge();
+        } else {
+            toast(data.message || 'Erro ao adicionar.', 'error');
+        }
+    }
+
+    loadCart();
+});
+</script>
+</body>
+</html>

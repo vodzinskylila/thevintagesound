@@ -1,279 +1,358 @@
 <!DOCTYPE html>
-
-<html class="dark" lang="en"><head>
+<html class="dark" lang="pt-BR">
+<head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>The Vintage Sound - Início</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;family=Playfair+Display:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "primary": "#bd0f2c",
-                        "background-light": "#f8f6f6",
-                        "background-dark": "#0a0708",
-                        "neutral-dark": "#1a1314",
-                        "border-muted": "#39282b",
-                    },
-                    fontFamily: {
-                        "display": ["Plus Jakarta Sans", "sans-serif"],
-                        "serif": ["Playfair Display", "serif"]
-                    },
-                    borderRadius: {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                },
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet"/>
+<script>
+tailwind.config = {
+    darkMode: 'class',
+    theme: {
+        extend: {
+            colors: {
+                primary: '#bd0f2c',
+                'bg-light': '#f8f6f6',
+                'bg-dark': '#0a0708',
+                'surface': '#1a1314',
+                'border': '#39282b',
             },
-        }
-    </script>
+            fontFamily: {
+                sans: ['Plus Jakarta Sans', 'sans-serif'],
+                serif: ['Playfair Display', 'serif'],
+            },
+        },
+    },
+}
+</script>
 <style>
-        body {
-            font-family: "Plus Jakarta Sans", sans-serif;
-        }
-        .serif-text {
-            font-family: "Playfair Display", serif;
-        }
-    </style>
+body { font-family: 'Plus Jakarta Sans', sans-serif; }
+.serif { font-family: 'Playfair Display', serif; }
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  font-family: 'Material Symbols Outlined';
+}
+</style>
 </head>
-<body class="bg-background-light dark:bg-background-dark text-neutral-900 dark:text-white antialiased">
-<!-- Top Navigation Bar -->
-<header class="fixed top-0 w-full z-50 bg-background-dark/80 backdrop-blur-md border-b border-border-muted px-6 lg:px-20 py-4">
-<div class="max-w-7xl mx-auto flex items-center justify-between">
-<div class="flex items-center gap-12">
-<div class="flex items-center gap-3" onclick="window.location.href='index.html'" style="cursor: pointer;">
-<div class="text-primary">
-<span class="material-symbols-outlined text-3xl">album</span>
-</div>
-<h1 class="serif-text text-xl font-bold tracking-tight">The Vintage Sound</h1>
-</div>
-<nav class="hidden md:flex items-center gap-8">
-<a class="text-sm font-medium hover:text-primary transition-colors" href="loja.html">Loja</a>
-<a class="text-sm font-medium hover:text-primary transition-colors" href="edicoes-passadas.html">Edições Passadas</a>
-<a class="text-sm font-medium hover:text-primary transition-colors" href="sobre.html">Sobre Nós</a>
-</nav>
-</div>
-<div class="flex items-center gap-6">
-<div class="hidden sm:flex items-center bg-neutral-dark border border-border-muted rounded-lg px-3 py-1.5 w-64">
-<span class="material-symbols-outlined text-zinc-400 text-xl">search</span>
-<input class="bg-transparent border-none focus:ring-0 text-sm placeholder:text-zinc-500 w-full" placeholder="Buscar artistas, gêneros..." type="text"/>
-</div>
-<button class="relative p-2 hover:bg-neutral-dark rounded-full transition-colors" onclick="window.location.href='carrinho.html'">
-<span class="material-symbols-outlined">shopping_bag</span>
-<span class="absolute top-1 right-1 bg-primary text-[10px] font-bold w-4 h-4 flex items-center justify-center rounded-full">2</span>
-</button>
-<div class="w-8 h-8 rounded-full bg-cover bg-center border border-border-muted" data-alt="User profile avatar portrait" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAY7EGK98be0nM05yMyCrtMUpeGzmok9CXoyOGPgk9sEuXo4mnDeeG8zmBVOb8bpfjlDC-cJtj6tsYrcppeBawp91ISynSxJRpFB9s-NpsOrOjbn-5T_ITddOlK9PHjleN3oISXEH62uFecjzl0zPlWuym5XU6ntILN_lSRQluQ6rOZquL9Re8z1MnYCQvpZhlus2Fp03x5b9skA-hcHMp-PY7v2Gj0ImUgWUiWbDrO1Xom59bonh-nSnCMTsvXb9hTk6tC5KCJbdk')"></div>
-</div>
-</div>
+<body class="bg-bg-light dark:bg-bg-dark text-gray-900 dark:text-white antialiased">
+
+<!-- HEADER -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-bg-dark/80 backdrop-blur-md border-b border-border">
+    <div class="max-w-7xl mx-auto px-6 lg:px-20 h-16 flex items-center justify-between">
+        <!-- Logo -->
+        <a href="index.html" class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+                <span class="material-symbols-outlined text-white text-2xl">album</span>
+            </div>
+            <span class="serif text-xl font-bold hidden sm:block">The Vintage Sound</span>
+        </a>
+
+        <!-- Nav -->
+        <nav class="hidden md:flex items-center gap-8">
+            <a href="loja.html" class="text-sm font-medium hover:text-primary transition-colors">Loja</a>
+            <a href="assinaturas.html" class="text-sm font-medium hover:text-primary transition-colors">Assinaturas</a>
+            <a href="edicoes-passadas.html" class="text-sm font-medium hover:text-primary transition-colors">Edições</a>
+            <a href="sobre.html" class="text-sm font-medium hover:text-primary transition-colors">Sobre</a>
+        </nav>
+
+        <!-- Actions -->
+        <div class="flex items-center gap-4">
+            <button class="p-2 hover:bg-surface rounded-lg transition-colors" onclick="window.location.href='carrinho.html'">
+                <span class="material-symbols-outlined">shopping_bag</span>
+                <span id="cart-badge" class="absolute -top-1 -right-1 w-5 h-5 bg-primary text-[10px] font-bold rounded-full flex items-center justify-center">0</span>
+            </button>
+            <a id="nav-login" href="login.html" class="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg text-sm font-bold transition-all">Login</a>
+            <a id="nav-profile" href="perfil.html" class="hidden bg-surface border border-border px-4 py-2 rounded-lg text-sm font-medium hover:border-primary transition-all">
+                <span id="nav-user-name">Conta</span>
+            </a>
+            <button id="nav-logout" class="hidden p-2 text-gray-400 hover:text-white transition-colors" title="Sair">
+                <span class="material-symbols-outlined">logout</span>
+            </button>
+        </div>
+    </div>
 </header>
-<main class="pt-24">
-<!-- Hero Section: Record of the Month -->
-<section class="px-6 lg:px-20 py-12 max-w-7xl mx-auto">
-<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-<div class="lg:col-span-7 relative group">
-<div class="aspect-square bg-neutral-dark rounded-xl overflow-hidden relative shadow-2xl">
-<img alt="Record of the Month Vinyl Cover" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="João Gilberto Chega de Saudade vinyl record cover art" src="https://i.pinimg.com/1200x/ef/ff/10/efff109238afd85cfa24fac55a8fb994.jpg"/>
-<!-- Vinyl Overlay effect -->
-<div class="absolute -right-20 top-1/2 -translate-y-1/2 w-full h-[90%] bg-black rounded-full shadow-2xl border-4 border-zinc-900 opacity-0 group-hover:opacity-100 group-hover:-right-32 transition-all duration-700 pointer-events-none hidden lg:block">
-<div class="w-full h-full rounded-full border border-zinc-800 flex items-center justify-center">
-<div class="w-1/3 h-1/3 bg-primary/20 rounded-full border border-primary/40"></div>
-</div>
-</div>
-</div>
-<div class="absolute -bottom-6 -left-6 bg-primary px-6 py-4 rounded-lg shadow-xl hidden md:block">
-<p class="text-xs uppercase tracking-widest font-bold opacity-80">Edição Exclusiva</p>
-<p class="serif-text text-xl font-bold">180g Blue Marble</p>
-</div>
-</div>
-<div class="lg:col-span-5 flex flex-col gap-8">
-<div>
-<span class="text-primary font-bold uppercase tracking-[0.2em] text-sm">Edição de Março 2024</span>
-<h2 class="serif-text text-5xl lg:text-7xl font-bold mt-4 leading-tight">Chega de Saudade</h2>
-<h3 class="text-2xl font-light text-zinc-400 mt-2 italic serif-text">João Gilberto</h3>
-</div>
-<p class="text-lg text-zinc-300 leading-relaxed max-w-md">Experimente a edição definitiva do álbum que deu origem à Bossa Nova. Nossa prensagem exclusiva do clube apresenta áudio de alta fidelidade remasterizado e a arte original da capa dupla.</p>
-<div class="flex flex-col sm:flex-row gap-4">
-<button class="bg-primary hover:bg-primary/90 text-white font-bold py-4 px-10 rounded-lg transition-all transform hover:-translate-y-1 flex items-center justify-center gap-2" onclick="window.location.href='login.html'">
-<span>Assine o Clube</span>
-<span class="material-symbols-outlined">arrow_forward</span>
-</button>
-<button class="border border-border-muted hover:bg-neutral-dark text-white font-bold py-4 px-10 rounded-lg transition-all">Ver Detalhes do Disco</button>
-</div>
-</div>
-</div>
-</section>
-<!-- Subscription Model: The Club -->
-<section class="bg-neutral-dark/50 py-24 mt-20 border-y border-border-muted">
-<div class="max-w-7xl mx-auto px-6 lg:px-20 text-center mb-16">
-<h2 class="serif-text text-4xl font-bold mb-4">Como o Clube Funciona</h2>
-<p class="text-zinc-400 max-w-xl mx-auto">Curadoria premium, entregue mensalmente. Eleve sua experiência auditiva com nossos benefícios exclusivos para membros.</p>
-</div>
-<div class="max-w-7xl mx-auto px-6 lg:px-20 grid grid-cols-1 md:grid-cols-3 gap-8">
-<div class="bg-neutral-dark p-8 rounded-xl border border-border-muted hover:border-primary/50 transition-colors group">
-<div class="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
-<span class="material-symbols-outlined text-primary text-3xl">tapas</span>
-</div>
-<h4 class="serif-text text-2xl font-bold mb-3">Curadoria Especializada</h4>
-<p class="text-zinc-400 leading-relaxed">Nossos especialistas vasculham arquivos para encontrar sons essenciais de diversos gêneros, desde lendas do Jazz até clássicos modernos do Hip-hop.</p>
-</div>
-<div class="bg-neutral-dark p-8 rounded-xl border border-border-muted hover:border-primary/50 transition-colors group">
-<div class="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
-<span class="material-symbols-outlined text-primary text-3xl">star</span>
-</div>
-<h4 class="serif-text text-2xl font-bold mb-3">Prensagens Exclusivas</h4>
-<p class="text-zinc-400 leading-relaxed">Variantes de cores personalizadas, masterização de alta fidelidade e embalagens de luxo que você não encontrará em nenhum outro lugar do mundo.</p>
-</div>
-<div class="bg-neutral-dark p-8 rounded-xl border border-border-muted hover:border-primary/50 transition-colors group">
-<div class="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
-<span class="material-symbols-outlined text-primary text-3xl">local_shipping</span>
-</div>
-<h4 class="serif-text text-2xl font-bold mb-3">Preços para Membros</h4>
-<p class="text-zinc-400 leading-relaxed">Garanta nosso Disco do Mês por um preço fixo baixo, além de frete grátis e descontos exclusivos em todo o catálogo da nossa loja.</p>
-</div>
-</div>
-</section>
-<!-- Explore by Genre -->
-<section class="py-24 max-w-7xl mx-auto px-6 lg:px-20">
-<div class="flex items-end justify-between mb-12">
-<div>
-<h2 class="serif-text text-4xl font-bold">Explorar por Gênero</h2>
-<p class="text-zinc-400 mt-2">Encontre seu próximo som favorito em nossa coleção selecionada.</p>
-</div>
-<a class="text-primary font-bold flex items-center gap-2 hover:underline transition-all" href="#">Ver Todas as Edições <span class="material-symbols-outlined">chevron_right</span></a>
-</div>
-<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-<!-- Genre Card 1 -->
-<a class="group block" href="#">
-<div class="aspect-square rounded-lg overflow-hidden relative mb-3">
-<img alt="Rock Genre" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Stylized rock music album cover aesthetic" src="https://i.pinimg.com/736x/55/c6/81/55c681a6531dacd439d57375cddd7db8.jpg"/>
-<div class="absolute inset-0 bg-black/40 group-hover:bg-primary/20 transition-colors flex items-center justify-center">
-<span class="text-white font-bold uppercase tracking-widest text-sm opacity-0 group-hover:opacity-100 transition-opacity">Explorar</span>
-</div>
-</div>
-<p class="font-bold text-center">Rock</p>
-</a>
-<!-- Genre Card 2 -->
-<a class="group block" href="#">
-<div class="aspect-square rounded-lg overflow-hidden relative mb-3">
-<img alt="Jazz Genre" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Vintage jazz musician silhouette photography" src="https://i.pinimg.com/1200x/20/38/fc/2038fc3353917bf41ba05742bf022d22.jpg"/>
-<div class="absolute inset-0 bg-black/40 group-hover:bg-primary/20 transition-colors flex items-center justify-center">
-<span class="text-white font-bold uppercase tracking-widest text-sm opacity-0 group-hover:opacity-100 transition-opacity">Explorar</span>
-</div>
-</div>
-<p class="font-bold text-center">Jazz</p>
-</a>
-<!-- Genre Card 3 -->
-<a class="group block" href="#">
-<div class="aspect-square rounded-lg overflow-hidden relative mb-3">
-<img alt="MPB Genre" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Tropical aesthetic brazilian music cover" src="https://i.pinimg.com/736x/e0/4d/c7/e04dc7ae767d2ad36aed35712e625c5e.jpg"/>
-<div class="absolute inset-0 bg-black/40 group-hover:bg-primary/20 transition-colors flex items-center justify-center">
-<span class="text-white font-bold uppercase tracking-widest text-sm opacity-0 group-hover:opacity-100 transition-opacity">Explorar</span>
-</div>
-</div>
-<p class="font-bold text-center">MPB</p>
-</a>
-<!-- Genre Card 4 -->
-<a class="group block" href="#">
-<div class="aspect-square rounded-lg overflow-hidden relative mb-3">
-<img alt="Hip-Hop Genre" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Urban graffiti style music album art" src="https://i.pinimg.com/736x/ae/54/ac/ae54ac9bfb229676c70d0ca48c6962c0.jpg"/>
-<div class="absolute inset-0 bg-black/40 group-hover:bg-primary/20 transition-colors flex items-center justify-center">
-<span class="text-white font-bold uppercase tracking-widest text-sm opacity-0 group-hover:opacity-100 transition-opacity">Explorar</span>
-</div>
-</div>
-<p class="font-bold text-center">Hip-Hop</p>
-</a>
-<!-- Genre Card 5 -->
-<a class="group block" href="#">
-<div class="aspect-square rounded-lg overflow-hidden relative mb-3">
-<img alt="Soul Genre" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Abstract soul music aesthetic background" src="https://i.pinimg.com/1200x/a8/35/70/a83570ce11ee80dcdf9a071505cf9164.jpg"/>
-<div class="absolute inset-0 bg-black/40 group-hover:bg-primary/20 transition-colors flex items-center justify-center">
-<span class="text-white font-bold uppercase tracking-widest text-sm opacity-0 group-hover:opacity-100 transition-opacity">Explorar</span>
-</div>
-</div>
-<p class="font-bold text-center">Soul</p>
-</a>
-<!-- Genre Card 6 -->
-<a class="group block" href="#">
-<div class="aspect-square rounded-lg overflow-hidden relative mb-3">
-<img alt="Blues Genre" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Classic electric guitar close up photography" src="https://i.pinimg.com/736x/6e/8a/43/6e8a4362292636a6cf1d24cde1904d20.jpg"/>
-<div class="absolute inset-0 bg-black/40 group-hover:bg-primary/20 transition-colors flex items-center justify-center">
-<span class="text-white font-bold uppercase tracking-widest text-sm opacity-0 group-hover:opacity-100 transition-opacity">Explorar</span>
-</div>
-</div>
-<p class="font-bold text-center">Blues</p>
-</a>
-</div>
-</section>
-<!-- Newsletter Section -->
-<section class="max-w-7xl mx-auto px-6 lg:px-20 py-24 border-t border-border-muted">
-<div class="bg-neutral-dark rounded-2xl p-12 flex flex-col items-center text-center gap-6">
-<span class="material-symbols-outlined text-primary text-4xl">mail</span>
-<h2 class="serif-text text-4xl font-bold italic">Nunca perca o compasso</h2>
-<p class="text-zinc-400 max-w-lg">Seja notificado sobre os próximos lançamentos do Disco do Mês e novidades na loja antes de todo mundo.</p>
-<form class="flex flex-col sm:flex-row gap-3 w-full max-w-md mt-4">
-<input class="flex-1 bg-background-dark border border-border-muted rounded-lg px-4 py-3 focus:ring-1 focus:ring-primary focus:border-primary" placeholder="Insira seu endereço de e-mail" type="email"/>
-<button class="bg-white text-black font-bold px-8 py-3 rounded-lg hover:bg-primary hover:text-white transition-all">Inscrever-se</button>
-</form>
-<p class="text-xs text-zinc-500">Ao se inscrever, você concorda com nossa Política de Privacidade</p>
-</div>
-</section>
+
+<!-- MAIN -->
+<main class="pt-20">
+
+ <!-- HERO SECTION -->
+    <section class="px-6 lg:px-20 py-12 max-w-7xl mx-auto">
+        <div id="hero-loading" class="flex justify-center py-20">
+            <div class="animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent"></div>
+        </div>
+        <div id="hero-content" class="hidden grid lg:grid-cols-2 gap-12 items-center">
+            <div class="relative group">
+                <div class="aspect-square bg-surface rounded-xl overflow-hidden shadow-2xl">
+                    <img id="hero-image" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="" alt="Disco do Mês"/>
+                </div>
+                <div class="absolute -bottom-4 -left-4 bg-primary px-6 py-3 rounded-lg shadow-xl hidden md:block">
+                    <p class="text-xs uppercase tracking-widest font-bold opacity-80">Edição do Mês</p>
+                    <p id="hero-pressing" class="serif text-lg font-bold">180g Blue Marble</p>
+                </div>
+            </div>
+            <div class="space-y-6">
+                <div>
+                    <span class="text-primary font-bold uppercase tracking-widest text-sm">Disco do Mês</span>
+                    <h1 id="hero-title" class="serif text-4xl lg:text-6xl font-bold mt-2">Carregando...</h1>
+                    <p id="hero-artist" class="text-xl text-gray-400 mt-2 italic">...</p>
+                </div>
+                <p id="hero-description" class="text-gray-300 text-lg leading-relaxed">...</p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="assinaturas.html" class="bg-primary hover:bg-primary/90 text-white font-bold py-3 px-8 rounded-lg transition-all flex items-center gap-2">
+                        <span>Assine o Clube</span>
+                        <span class="material-symbols-outlined">arrow_forward</span>
+                    </a>
+                    <button id="hero-view" class="border border-border hover:bg-surface text-white font-bold py-3 px-8 rounded-lg transition-all">Ver Detalhes</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CLUB BENEFITS -->
+    <section class="bg-surface/50 py-16 border-y border-border">
+        <div class="max-w-7xl mx-auto px-6 lg:px-20">
+            <h2 class="serif text-3xl font-bold text-center mb-12">Como o Clube Funciona</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-bg-dark p-6 rounded-xl border border-border text-center">
+                    <div class="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="material-symbols-outlined text-primary text-3xl">auto_awesome</span>
+                    </div>
+                    <h3 class="serif text-xl font-bold mb-2">Curadoria Especializada</h3>
+                    <p class="text-gray-400 text-sm">Experts selecionam os melhores lançamentos e clássicos do mundo do vinil.</p>
+                </div>
+                <div class="bg-bg-dark p-6 rounded-xl border border-border text-center">
+                    <div class="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="material-symbols-outlined text-primary text-3xl">star</span>
+                    </div>
+                    <h3 class="serif text-xl font-bold mb-2">Prensagens Exclusivas</h3>
+                    <p class="text-gray-400 text-sm">Edições limitadas em vinil colorido, numeradas e masterizadas.</p>
+                </div>
+                <div class="bg-bg-dark p-6 rounded-xl border border-border text-center">
+                    <div class="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="material-symbols-outlined text-primary text-3xl">local_shipping</span>
+                    </div>
+                    <h3 class="serif text-xl font-bold mb-2">Frete Grátis</h3>
+                    <p class="text-gray-400 text-sm">Entrega gratuita para membros em todo o Brasil.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURED PRODUCTS -->
+    <section class="max-w-7xl mx-auto px-6 lg:px-20 py-16">
+        <div class="flex items-center justify-between mb-8">
+            <h2 class="serif text-3xl font-bold">Destaques</h2>
+            <a href="loja.html" class="text-primary font-medium flex items-center gap-1 hover:underline">
+                Ver Todos <span class="material-symbols-outlined text-sm">chevron_right</span>
+            </a>
+        </div>
+        <div id="featured-products" class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <!-- Products loaded dynamically -->
+        </div>
+    </section>
+
+    <!-- GENRES -->
+    <section class="max-w-7xl mx-auto px-6 lg:px-20 py-16">
+        <h2 class="serif text-3xl font-bold mb-8">Explorar por Gênero</h2>
+        <div class="grid grid-cols-3 md:grid-cols-6 gap-4">
+            <a href="loja.html?genre=Rock" class="group text-center">
+                <div class="aspect-square rounded-lg overflow-hidden mb-3 relative">
+                    <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://i.pinimg.com/736x/55/c6/81/55c681a6531dacd439d57375cddd7db8.jpg" alt="Rock"/>
+                    <div class="absolute inset-0 bg-black/40 group-hover:bg-primary/30 transition-colors flex items-center justify-center">
+                        <span class="text-white font-bold uppercase text-xs opacity-0 group-hover:opacity-100 transition-opacity">Explorar</span>
+                    </div>
+                </div>
+                <p class="font-bold text-sm">Rock</p>
+            </a>
+            <a href="loja.html?genre=Jazz" class="group text-center">
+                <div class="aspect-square rounded-lg overflow-hidden mb-3 relative">
+                    <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://i.pinimg.com/1200x/20/38/fc/2038fc3353917bf41ba05742bf022d22.jpg" alt="Jazz"/>
+                    <div class="absolute inset-0 bg-black/40 group-hover:bg-primary/30 transition-colors flex items-center justify-center">
+                        <span class="text-white font-bold uppercase text-xs opacity-0 group-hover:opacity-100 transition-opacity">Explorar</span>
+                    </div>
+                </div>
+                <p class="font-bold text-sm">Jazz</p>
+            </a>
+            <a href="loja.html?genre=MPB" class="group text-center">
+                <div class="aspect-square rounded-lg overflow-hidden mb-3 relative">
+                    <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://i.pinimg.com/736x/e0/4d/c7/e04dc7ae767d2ad36aed35712e625c5e.jpg" alt="MPB"/>
+                    <div class="absolute inset-0 bg-black/40 group-hover:bg-primary/30 transition-colors flex items-center justify-center">
+                        <span class="text-white font-bold uppercase text-xs opacity-0 group-hover:opacity-100 transition-opacity">Explorar</span>
+                    </div>
+                </div>
+                <p class="font-bold text-sm">MPB</p>
+            </a>
+            <a href="loja.html?genre=Hip-hop" class="group text-center">
+                <div class="aspect-square rounded-lg overflow-hidden mb-3 relative">
+                    <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://i.pinimg.com/736x/ae/54/ac/ae54ac9bfb229676c70d0ca48c6962c0.jpg" alt="Hip-Hop"/>
+                    <div class="absolute inset-0 bg-black/40 group-hover:bg-primary/30 transition-colors flex items-center justify-center">
+                        <span class="text-white font-bold uppercase text-xs opacity-0 group-hover:opacity-100 transition-opacity">Explorar</span>
+                    </div>
+                </div>
+                <p class="font-bold text-sm">Hip-Hop</p>
+            </a>
+            <a href="loja.html?genre=Soul" class="group text-center">
+                <div class="aspect-square rounded-lg overflow-hidden mb-3 relative">
+                    <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://i.pinimg.com/1200x/a8/35/70/a83570ce11ee80dcdf9a071505cf9164.jpg" alt="Soul"/>
+                    <div class="absolute inset-0 bg-black/40 group-hover:bg-primary/30 transition-colors flex items-center justify-center">
+                        <span class="text-white font-bold uppercase text-xs opacity-0 group-hover:opacity-100 transition-opacity">Explorar</span>
+                    </div>
+                </div>
+                <p class="font-bold text-sm">Soul</p>
+            </a>
+            <a href="loja.html?genre=Blues" class="group text-center">
+                <div class="aspect-square rounded-lg overflow-hidden mb-3 relative">
+                    <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://i.pinimg.com/736x/6e/8a/43/6e8a4362292636a6cf1d24cde1904d20.jpg" alt="Blues"/>
+                    <div class="absolute inset-0 bg-black/40 group-hover:bg-primary/30 transition-colors flex items-center justify-center">
+                        <span class="text-white font-bold uppercase text-xs opacity-0 group-hover:opacity-100 transition-opacity">Explorar</span>
+                    </div>
+                </div>
+                <p class="font-bold text-sm">Blues</p>
+            </a>
+        </div>
+    </section>
+
+    <!-- NEWSLETTER -->
+    <section class="max-w-7xl mx-auto px-6 lg:px-20 py-16 border-t border-border">
+        <div class="bg-surface rounded-2xl p-12 text-center max-w-2xl mx-auto">
+            <span class="material-symbols-outlined text-primary text-4xl mb-4">mail</span>
+            <h2 class="serif text-3xl font-bold italic mb-4">Nunca perca o compasso</h2>
+            <p class="text-gray-400 mb-6">Receba novidades sobre lançamentos e ofertas exclusivas.</p>
+            <form id="newsletter-form" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                <input id="newsletter-email" type="email" placeholder="seu@email.com" class="flex-1 bg-bg-dark border border-border rounded-lg px-4 py-3 focus:border-primary focus:outline-none" required/>
+                <button type="submit" class="bg-primary hover:bg-primary/90 text-white font-bold px-6 py-3 rounded-lg transition-all">Inscrever</button>
+            </form>
+        </div>
+    </section>
 </main>
-<!-- Footer -->
-<footer class="bg-background-dark border-t border-border-muted pt-20 pb-10">
-<div class="max-w-7xl mx-auto px-6 lg:px-20">
-<div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
-<div class="col-span-1 md:col-span-1">
-<div class="flex items-center gap-3 mb-6" onclick="window.location.href='index.html'" style="cursor: pointer;">
-<span class="material-symbols-outlined text-primary text-2xl">album</span>
-<h2 class="serif-text text-xl font-bold tracking-tight">The Vintage Sound</h2>
-</div>
-<p class="text-zinc-500 text-sm leading-relaxed">Dedicada à preservação e celebração da música atemporal em seu formato definitivo.</p>
-</div>
-<div>
-<h5 class="font-bold mb-6 text-sm uppercase tracking-widest">Loja</h5>
-<ul class="flex flex-col gap-4 text-zinc-400 text-sm">
-<li><a class="hover:text-primary transition-colors" href="loja.html">Discos</a></li>
-<li><a class="hover:text-primary transition-colors" href="loja.html">Toca-discos</a></li>
-<li><a class="hover:text-primary transition-colors" href="loja.html">Armazenamento e Cuidados</a></li>
-<li><a class="hover:text-primary transition-colors" href="loja.html">Cartões Presente</a></li>
-</ul>
-</div>
-<div>
-<h5 class="font-bold mb-6 text-sm uppercase tracking-widest">Suporte</h5>
-<ul class="flex flex-col gap-4 text-zinc-400 text-sm">
-<li><a class="hover:text-primary transition-colors" href="loja.html">Discos</a></li>
-<li><a class="hover:text-primary transition-colors" href="loja.html">Toca-discos</a></li>
-<li><a class="hover:text-primary transition-colors" href="loja.html">Armazenamento e Cuidados</a></li>
-<li><a class="hover:text-primary transition-colors" href="loja.html">Cartões Presente</a></li>
-</ul>
-</div>
-<div>
-<h5 class="font-bold mb-6 text-sm uppercase tracking-widest">Siga-nos</h5>
-<div class="flex gap-4">
-<a class="w-10 h-10 border border-border-muted rounded-full flex items-center justify-center hover:bg-neutral-dark transition-colors" href="#">
-<svg class="w-5 h-5 fill-current" viewbox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"></path></svg>
-</a>
-<a class="w-10 h-10 border border-border-muted rounded-full flex items-center justify-center hover:bg-neutral-dark transition-colors" href="#">
-<svg class="w-5 h-5 fill-current" viewbox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.669-.072-4.948-.2-4.358-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path></svg>
-</a>
-</div>
-</div>
-</div>
-<div class="pt-10 border-t border-border-muted flex flex-col md:flex-row justify-between items-center gap-6">
-<p class="text-zinc-500 text-xs tracking-wider uppercase">© 2024 The Vintage Sound. Todos os direitos reservados.</p>
-<div class="flex gap-8 text-xs text-zinc-500 tracking-wider uppercase">
-<a class="hover:text-white transition-colors" href="#">Política de Privacidade</a>
-<a class="hover:text-white transition-colors" href="#">Termos de Serviço</a>
-<a class="hover:text-white transition-colors" href="#">Configurações de Cookies</a>
-</div>
-</div>
-</div>
+
+<!-- FOOTER -->
+<footer class="bg-bg-dark border-t border-border py-12">
+    <div class="max-w-7xl mx-auto px-6 lg:px-20">
+        <div class="grid md:grid-cols-4 gap-8 mb-8">
+            <div>
+                <a href="index.html" class="flex items-center gap-3 mb-4">
+                    <span class="material-symbols-outlined text-primary text-2xl">album</span>
+                    <span class="serif text-lg font-bold">The Vintage Sound</span>
+                </a>
+                <p class="text-gray-500 text-sm">Preservando a música atemporal em seu formato definitivo.</p>
+            </div>
+            <div>
+                <h4 class="font-bold mb-4 text-sm uppercase tracking-wider">Loja</h4>
+                <ul class="space-y-2 text-sm text-gray-400">
+                    <li><a href="loja.html" class="hover:text-primary transition-colors">Discos</a></li>
+                    <li><a href="assinaturas.html" class="hover:text-primary transition-colors">Assinaturas</a></li>
+                    <li><a href="edicoes-passadas.html" class="hover:text-primary transition-colors">Edições</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold mb-4 text-sm uppercase tracking-wider">Suporte</h4>
+                <ul class="space-y-2 text-sm text-gray-400">
+                    <li><a href="sobre.html" class="hover:text-primary transition-colors">FAQ</a></li>
+                    <li><a href="sobre.html" class="hover:text-primary transition-colors">Envio</a></li>
+                    <li><a href="sobre.html" class="hover:text-primary transition-colors">Contato</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold mb-4 text-sm uppercase tracking-wider">Redes</h4>
+                <div class="flex gap-3">
+                    <a href="#" class="w-10 h-10 border border-border rounded-full flex items-center justify-center hover:bg-surface transition-colors">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    </a>
+                    <a href="#" class="w-10 h-10 border border-border rounded-full flex items-center justify-center hover:bg-surface transition-colors">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.848 0-3.204.012-3.584.07-4.85.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-500">
+            <p>© 2024 The Vintage Sound. Todos os direitos reservados.</p>
+            <div class="flex gap-6">
+                <a href="sobre.html" class="hover:text-white transition-colors">Privacidade</a>
+                <a href="sobre.html" class="hover:text-white transition-colors">Termos</a>
+            </div>
+        </div>
+    </div>
 </footer>
-</body></html>
+
+<script src="api.js"></script>
+<script>
+let currentFeaturedProduct = null;
+
+async function loadHeroProduct() {
+    const { ok, data } = await Products.list({ featured: 'true', limit: 1 });
+    if (ok && data.data.length > 0) {
+        currentFeaturedProduct = data.data[0];
+    } else {
+        const res = await Products.list({ limit: 1 });
+        if (res.ok && res.data.data.length > 0) currentFeaturedProduct = res.data.data[0];
+    }
+    if (currentFeaturedProduct) {
+        document.getElementById('hero-image').src = currentFeaturedProduct.imageUrl || 'https://via.placeholder.com/600';
+        document.getElementById('hero-title').textContent = currentFeaturedProduct.title;
+        document.getElementById('hero-artist').textContent = currentFeaturedProduct.artist;
+        document.getElementById('hero-description').textContent = currentFeaturedProduct.description || 'Uma obra-prima do catálogo.';
+        document.getElementById('hero-pressing').textContent = currentFeaturedProduct.pressing || '180g Premium';
+        document.getElementById('hero-view').onclick = () => window.location.href = 'loja.html?product=' + currentFeaturedProduct.id;
+    }
+    document.getElementById('hero-loading').classList.add('hidden');
+    document.getElementById('hero-content').classList.remove('hidden');
+}
+
+async function loadFeaturedProducts() {
+    const { ok, data } = await Products.list({ limit: 4 });
+    if (!ok) return;
+    const container = document.getElementById('featured-products');
+    container.innerHTML = data.data.map(p => `
+        <div class="group">
+            <div class="relative aspect-square mb-4 overflow-hidden rounded-lg bg-surface">
+                <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="${p.imageUrl || 'https://via.placeholder.com/300'}" alt="${p.title}"/>
+                <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <button class="size-10 rounded-full bg-primary text-white flex items-center justify-center hover:scale-110 transition-transform" onclick="addToCart('${p.id}', '${p.title.replace(/'/g, "\\'")}')">
+                        <span class="material-symbols-outlined text-lg">add_shopping_cart</span>
+                    </button>
+                </div>
+            </div>
+            <h3 class="font-bold truncate">${p.title}</h3>
+            <p class="text-gray-400 text-sm truncate">${p.artist}</p>
+            <p class="text-primary font-bold mt-1">${formatPrice(p.price)}</p>
+        </div>
+    `).join('');
+}
+
+async function addToCart(productId, productName) {
+    console.log('addToCart called:', productId, productName);
+    const user = getUser();
+    const token = getToken();
+    console.log('User logged in:', !!user, 'Token:', !!token);
+
+    if (!isLoggedIn()) {
+        toast('⚠️ Faça login para adicionar ao carrinho.', 'error');
+        setTimeout(() => window.location.href = 'login.html?redirect=loja.html', 1500);
+        return;
+    }
+    const { ok, data } = await Cart.addItem(productId, 1);
+    console.log('Cart.addItem result:', ok, data);
+    if (ok) { toast(`🎵 "${productName}" adicionado ao carrinho!`, 'success'); updateCartBadge(); }
+    else toast(data.message || 'Erro ao adicionar ao carrinho.', 'error');
+}
+
+document.getElementById('newsletter-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    toast('Obrigado por se inscrever!', 'success');
+    e.target.reset();
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    updateNavUser();
+    setupLogout();
+    updateCartBadge();
+    loadHeroProduct();
+    loadFeaturedProducts();
+});
+</script>
+</body>
+</html>
